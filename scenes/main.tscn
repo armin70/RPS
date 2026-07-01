@@ -1,0 +1,159 @@
+[gd_scene format=3 uid="uid://c4f1jaky3h7js"]
+
+[ext_resource type="Script" uid="uid://bhe3ip128r65u" path="res://main.gd" id="1_0wfyh"]
+[ext_resource type="PackedScene" uid="uid://ds8qtausq5e8i" path="res://scenes/rps__container.tscn" id="1_o5qli"]
+[ext_resource type="Texture2D" uid="uid://cmsnat1guqcwu" path="res://assets/version 0.1.4.png" id="2_jyhfs"]
+[ext_resource type="PackedScene" uid="uid://bgtr5jv4gquuf" path="res://scenes/hand.tscn" id="3_sugp2"]
+[ext_resource type="Texture2D" uid="uid://lxbpxs8rhy8c" path="res://assets/bot.png" id="5_tefeu"]
+[ext_resource type="Texture2D" uid="uid://tjqao4si7ix0" path="res://assets/player.png" id="6_o6xl0"]
+[ext_resource type="FontFile" uid="uid://pfg8ofwqc0xk" path="res://assets/fonts/Lalezar-Regular.ttf" id="7_o6xl0"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_tefeu"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_o6xl0"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_85g3d"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_tipki"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_85g3d"]
+bg_color = Color(0.99215686, 0.63529414, 0, 1)
+corner_radius_top_left = 60
+corner_radius_top_right = 60
+corner_radius_bottom_right = 60
+corner_radius_bottom_left = 60
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_choun"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ya4ey"]
+bg_color = Color(0, 0.6117647, 0.99215686, 1)
+corner_radius_top_left = 60
+corner_radius_top_right = 60
+corner_radius_bottom_right = 60
+corner_radius_bottom_left = 60
+
+[sub_resource type="LabelSettings" id="LabelSettings_tipki"]
+font = ExtResource("7_o6xl0")
+font_size = 40
+
+[sub_resource type="LabelSettings" id="LabelSettings_85g3d"]
+font = ExtResource("7_o6xl0")
+font_size = 40
+
+[sub_resource type="LabelSettings" id="LabelSettings_o6xl0"]
+font = ExtResource("7_o6xl0")
+font_size = 40
+
+[sub_resource type="LabelSettings" id="LabelSettings_choun"]
+font = ExtResource("7_o6xl0")
+font_size = 40
+
+[node name="Main" type="Node2D" unique_id=993622164]
+script = ExtResource("1_0wfyh")
+
+[node name="bg" type="Sprite2D" parent="." unique_id=235117010]
+position = Vector2(540, 955)
+texture = ExtResource("2_jyhfs")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1158986219]
+position = Vector2(534, 960)
+
+[node name="RPSContainer" parent="." unique_id=917461322 instance=ExtResource("1_o5qli")]
+position = Vector2(304, 762)
+
+[node name="hand" parent="." unique_id=2013734100 instance=ExtResource("3_sugp2")]
+position = Vector2(323, 1441)
+
+[node name="UI" type="Control" parent="." unique_id=1608464452]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="submit" type="Button" parent="UI" unique_id=1145507938]
+layout_mode = 0
+offset_left = 787.0
+offset_top = 1002.0
+offset_right = 1016.0
+offset_bottom = 1229.0
+theme_override_styles/normal = SubResource("StyleBoxEmpty_tefeu")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_o6xl0")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_85g3d")
+
+[node name="BotHpBar" type="ProgressBar" parent="UI" unique_id=1766619303]
+layout_mode = 0
+offset_left = 62.0
+offset_top = 168.0
+offset_right = 522.0
+offset_bottom = 568.0
+theme_override_styles/background = SubResource("StyleBoxEmpty_tipki")
+theme_override_styles/fill = SubResource("StyleBoxFlat_85g3d")
+max_value = 50.0
+value = 15.0
+fill_mode = 3
+show_percentage = false
+
+[node name="PlayerHpBar" type="ProgressBar" parent="UI" unique_id=754539585]
+layout_mode = 0
+offset_left = 561.0
+offset_top = 172.0
+offset_right = 1013.0
+offset_bottom = 572.0
+theme_override_styles/background = SubResource("StyleBoxEmpty_choun")
+theme_override_styles/fill = SubResource("StyleBoxFlat_ya4ey")
+max_value = 50.0
+value = 15.0
+fill_mode = 3
+show_percentage = false
+
+[node name="Bot" type="Sprite2D" parent="UI" unique_id=1462345962]
+position = Vector2(149, 550)
+texture = ExtResource("5_tefeu")
+
+[node name="Player" type="Sprite2D" parent="UI" unique_id=951120045]
+position = Vector2(674, 551)
+texture = ExtResource("6_o6xl0")
+
+[node name="BotHP" type="Label" parent="UI" unique_id=189625205]
+layout_mode = 0
+offset_left = 256.0
+offset_top = 259.0
+offset_right = 298.0
+offset_bottom = 323.0
+text = "50"
+label_settings = SubResource("LabelSettings_tipki")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BotHPDamage" type="Label" parent="UI" unique_id=137395252]
+layout_mode = 0
+offset_left = 260.0
+offset_top = 195.0
+offset_right = 302.0
+offset_bottom = 259.0
+label_settings = SubResource("LabelSettings_85g3d")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PlayerHP" type="Label" parent="UI" unique_id=382707334]
+layout_mode = 0
+offset_left = 757.0
+offset_top = 265.0
+offset_right = 799.0
+offset_bottom = 329.0
+text = "50"
+label_settings = SubResource("LabelSettings_o6xl0")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PlayerHPDamage" type="Label" parent="UI" unique_id=1263453495]
+layout_mode = 0
+offset_left = 759.0
+offset_top = 210.0
+offset_right = 801.0
+offset_bottom = 274.0
+label_settings = SubResource("LabelSettings_choun")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="pressed" from="UI/submit" to="." method="_on_submit_pressed"]
