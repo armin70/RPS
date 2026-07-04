@@ -65,6 +65,8 @@ func submit_card(owner: String):
 	#play_popup_effect($WordDamage)
 	#await play_popup_effect($WordDamage)
 	#$WordDamage.text = ""
+	$RPSContainer.roll_jackpot()
+	await get_tree().create_timer(1).timeout
 	is_game_running = false
 	if owner == "player":
 		bot_hp -= damage

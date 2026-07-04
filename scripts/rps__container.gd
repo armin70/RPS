@@ -8,65 +8,167 @@ extends Node2D
 const ROCK = preload("uid://dx1kcjudo0gxe")
 const PAPER = preload("uid://cocrlxvcogpqs")
 const SCISSORS = preload("uid://c43c7km5wekoc")
-
-var current_deck = []
+var unlocked_items = []
+var current_item_number =0
 var rps = ['Rock','Paper','Scissors']
-
+var variations =  ["fire", "water", "thunder"]
+var full_deck = []
 func _ready() -> void:
+	full_deck_generator()
 	generate_RPS()
 	
 
+func get_random_unlock():
+	unlocked_items = []
+	var numbers = [0, 1, 2, 3]
+	numbers.shuffle()
+	for i in range(0,2):
+		unlocked_items.append(numbers[i])
+	print(unlocked_items)
+	await get_tree().create_timer(1).timeout
+	hide_locks()
+
 func add_to_placeholder(choices):
-	for placeholder in placeholders:
-		if placeholder.get_children().size() > 0:
-			for child in placeholder.get_children():
-				child.queue_free()
 	var selected_scene
 	var index = -1
+	var empty_places = []
+	print("choicessssssssssss",choices)
+	await get_tree().create_timer(.5).timeout
+	for i in range(0,4):
+		print("pre empty",placeholders[i].get_children())
+		if placeholders[i].get_children().size() == 0:
+			print("empty",i)
+			empty_places.append(i)
+	print("empty: ", empty_places)
 	for choice in choices:
 		index += 1
-		if choice == 'Rock':
+		var i = empty_places[index]
+		if choice[0] == 'Rock':
 			selected_scene =  ROCK.instantiate()
-		elif choice == 'Paper':
+		elif choice[0] == 'Paper':
 			selected_scene = PAPER.instantiate()
-		elif choice == 'Scissors':
+		elif choice[0] == 'Scissors':
 			selected_scene = SCISSORS.instantiate()
-		selected_scene.add_to_group(choice)
-		placeholders[index].add_child(selected_scene)
+		selected_scene.add_to_group(choice[0])
+
+		placeholders[i].add_child(selected_scene)
+		if choice[1] == 'fire':
+			print('fire')
+			selected_scene.play_fire_animation()
+		elif choice[1] == 'water':
+			print('water')
+			selected_scene.play_water_animation()
+		elif choice[1] == 'thunder':
+			print('thunder')
+			selected_scene.play_thunder_animation()
+		current_item_number +=1
+
+
+func full_deck_generator():
+	var card
+	var choice
+	for i in range(0,10):
+		choice = rps.pick_random()
+		card = [choice, ""]
+		full_deck.append(card)
+	for i in range(0,10):
+		for variation in variations:
+			choice = rps.pick_random()
+			card = [choice, variation]
+			full_deck.append(card)
+	print("full_deck:",full_deck)
+
+func pick_random_card(number):
+	var new_deck =[]
+	for i in number:
+		var index = randi() % full_deck.size()
+		var value = full_deck[index]
+		var type = value[0]
+		var count = 0
+		full_deck.remove_at(index)
+		new_deck.append(value)
+	return new_deck
+
+
+func roll_jackpot():
+	var choice
+	var selected_scene
+	for item in unlocked_items:
+		if placeholders[item].get_children().size()>0 :
+			for child in placeholders[item].get_children():
+				child.queue_free()
+		choice = pick_random_card(1)
+		if choice[0][0] == 'Rock':
+			selected_scene =  ROCK.instantiate()
+			
+		elif choice[0][0] == 'Paper':
+			selected_scene = PAPER.instantiate()
+			
+		elif choice[0][0] == 'Scissors':
+			selected_scene = SCISSORS.instantiate()
+			
+		selected_scene.add_to_group(choice[0][0])
+		placeholders[item].add_child(selected_scene)
 func generate_RPS():
 	var choice
-	for i in range(0,4):
-		choice = rps.pick_random()
-		while current_deck.count(choice) > 1 :
-			choice = rps.pick_random()
-		current_deck.append(choice)
-		print(current_deck)
-		add_to_placeholder(current_deck)
+	var current_deck = []
+	
+	for placeholder in placeholders:
+		if placeholder.get_children().size()>0 :
+			for child in placeholder.get_children():
+				child.queue_free()
+	#for i in range(0,4):
+		#print(i)
+		#choice = rps.pick_random()
+		#while current_deck.count(choice) > 1 :
+			#choice = rps.pick_random()
+		#current_deck.append(choice)
+	current_deck = pick_random_card(4)
+	print("current_deck current_deck",current_deck)
+	add_to_placeholder(current_deck)
+	get_random_unlock()
 
+func hide_locks():
+	print("unlocked_items ", unlocked_items)
+	for i in unlocked_items:
+		print("IIIIIIIIIIIIIII  ", i)
+		var children = placeholders[i].get_children()
+		print("children: ", children)
+		children[0].hide_lock()
 
 func remove_type(type_name: String):
 	var targets
 	var buff
 	if type_name == "Rock":
 		targets = get_tree().get_nodes_in_group("Scissors")
-		current_deck = current_deck.filter(func(item): return item != "Scissors")
+		#current_deck = current_deck.filter(func(item): return item != "Scissors")
 		buff = targets.size()
+		#empty_placeholder("Scissors")
 	elif type_name == "Paper":
 		targets = get_tree().get_nodes_in_group("Rock")
-		current_deck = current_deck.filter(func(item): return item != "Rock")
+		#current_deck = current_deck.filter(func(item): return item != "Rock")
 		buff = targets.size()
+		#empty_placeholder("Rock")
+		
 	elif type_name == "Scissors":
 		targets = get_tree().get_nodes_in_group("Paper")
-		current_deck = current_deck.filter(func(item): return item != "Paper")
+		#current_deck = current_deck.filter(func(item): return item != "Paper")
 		buff = targets.size()
+		#empty_placeholder("Paper")
+		
 	else:
 		print('cant catch')
+	current_item_number -= targets.size()
+	print("current_item_number remove type ",current_item_number)
 	get_parent().multiplier = buff
 	print("buff: ",buff)
-	#await wait_to_finish_animation(targets)
+	wait_to_finish_animation(targets)
+	await get_tree().create_timer(2).timeout
+	get_random_unlock()
 		
-	await get_tree().create_timer(.5).timeout
 	fill_free_space()
+	
+	
 
 func wait_to_finish_animation(targets):
 	for node in targets:
@@ -91,14 +193,14 @@ func get_debuff(type_name):
 
 func fill_free_space():
 	print("filled")
-	var choice
-	
-	if current_deck.size() < 4:
-		var free_space = 4 - current_deck.size()
-		for i in range(0,free_space):
-			choice = rps.pick_random()
-			while current_deck.count(choice) > 1 :
-				choice = rps.pick_random()
-			current_deck.append(choice)
-			var selected_scene 
-			add_to_placeholder(current_deck)
+	var new_items = []
+	print("current_item_number ",current_item_number)
+	if current_item_number < 4:
+		var free_space = 4 - current_item_number
+		print("free_space " ,free_space)
+		new_items = pick_random_card(free_space)
+			#while current_deck.count(choice) > 1 :
+				#choice = rps.pick_random()
+			#current_deck.append(choice)
+		print("new_items",new_items)
+		add_to_placeholder(new_items)

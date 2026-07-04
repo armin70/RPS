@@ -5,7 +5,7 @@ var rock_card
 var paper_card
 var scissors_card
 var hand_center = Vector2(200, 0)
-var spacing = 200
+var spacing = 300
 
 func layout_hand():
 
