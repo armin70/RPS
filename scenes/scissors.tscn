@@ -419,7 +419,7 @@ position = Vector2(-4, -4)
 sprite_frames = SubResource("SpriteFrames_rmkyt")
 animation = &"water"
 autoplay = "idle"
-frame_progress = 0.8858134
+frame_progress = 0.8649103
 
 [node name="Multiplier" type="Label" parent="." unique_id=1844234753]
 offset_left = -27.0
@@ -436,6 +436,7 @@ offset_bottom = -21.0
 label_settings = SubResource("LabelSettings_g4oad")
 
 [node name="Lock" type="Sprite2D" parent="." unique_id=805037885]
+visible = false
 position = Vector2(-5, 165)
 scale = Vector2(0.23046875, 0.23046875)
 texture = ExtResource("6_6hbjw")

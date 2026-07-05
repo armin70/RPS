@@ -454,7 +454,7 @@ script = ExtResource("1_vas6c")
 sprite_frames = SubResource("SpriteFrames_rmkyt")
 animation = &"fire"
 autoplay = "idle"
-frame_progress = 0.154195
+frame_progress = 0.037811916
 
 [node name="Multiplier" type="Label" parent="." unique_id=1250212555]
 offset_left = -26.0
@@ -471,6 +471,7 @@ offset_bottom = -29.0
 label_settings = SubResource("LabelSettings_g4oad")
 
 [node name="Lock" type="Sprite2D" parent="." unique_id=903904176]
+visible = false
 position = Vector2(-1, 169)
 scale = Vector2(0.23046875, 0.23046875)
 texture = ExtResource("6_pohdc")

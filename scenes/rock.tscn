@@ -525,7 +525,7 @@ script = ExtResource("1_mek2u")
 sprite_frames = SubResource("SpriteFrames_rmkyt")
 animation = &"thunder"
 autoplay = "idle"
-frame_progress = 0.65519315
+frame_progress = 0.54603803
 
 [node name="Multiplier" type="Label" parent="." unique_id=1851570550]
 offset_left = -26.0
@@ -542,6 +542,7 @@ offset_bottom = -29.0
 label_settings = SubResource("LabelSettings_p2d0s")
 
 [node name="Lock" type="Sprite2D" parent="." unique_id=14255215]
+visible = false
 position = Vector2(-1, 169)
 scale = Vector2(0.23046875, 0.23046875)
 texture = ExtResource("6_vqvgd")

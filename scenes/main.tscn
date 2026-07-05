@@ -36,17 +36,18 @@ corner_radius_bottom_left = 60
 font = ExtResource("7_o6xl0")
 font_size = 40
 
-[sub_resource type="LabelSettings" id="LabelSettings_85g3d"]
-font = ExtResource("7_o6xl0")
-font_size = 40
-
 [sub_resource type="LabelSettings" id="LabelSettings_o6xl0"]
 font = ExtResource("7_o6xl0")
 font_size = 40
 
+[sub_resource type="LabelSettings" id="LabelSettings_85g3d"]
+font_size = 30
+
 [sub_resource type="LabelSettings" id="LabelSettings_choun"]
-font = ExtResource("7_o6xl0")
-font_size = 40
+font_size = 30
+
+[sub_resource type="LabelSettings" id="LabelSettings_ya4ey"]
+font_size = 30
 
 [node name="Main" type="Node2D" unique_id=993622164]
 script = ExtResource("1_0wfyh")
@@ -114,45 +115,58 @@ texture = ExtResource("5_tefeu")
 position = Vector2(674, 551)
 texture = ExtResource("6_o6xl0")
 
-[node name="BotHP" type="Label" parent="UI" unique_id=189625205]
+[node name="BotPoint" type="Label" parent="UI" unique_id=189625205]
 layout_mode = 0
 offset_left = 256.0
 offset_top = 259.0
 offset_right = 298.0
 offset_bottom = 323.0
-text = "50"
+text = "0"
 label_settings = SubResource("LabelSettings_tipki")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="BotHPDamage" type="Label" parent="UI" unique_id=137395252]
-layout_mode = 0
-offset_left = 260.0
-offset_top = 195.0
-offset_right = 302.0
-offset_bottom = 259.0
-label_settings = SubResource("LabelSettings_85g3d")
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="PlayerHP" type="Label" parent="UI" unique_id=382707334]
+[node name="PlayerPoint" type="Label" parent="UI" unique_id=382707334]
 layout_mode = 0
 offset_left = 757.0
 offset_top = 265.0
 offset_right = 799.0
 offset_bottom = 329.0
-text = "50"
+text = "0"
 label_settings = SubResource("LabelSettings_o6xl0")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="PlayerHPDamage" type="Label" parent="UI" unique_id=1263453495]
+[node name="WaterLabel" type="Label" parent="UI" unique_id=66207840]
 layout_mode = 0
-offset_left = 759.0
-offset_top = 210.0
-offset_right = 801.0
-offset_bottom = 274.0
+offset_left = 28.0
+offset_top = 1303.0
+offset_right = 68.0
+offset_bottom = 1326.0
+text = "water"
+label_settings = SubResource("LabelSettings_85g3d")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="FireLabel" type="Label" parent="UI" unique_id=88099990]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 1363.0
+offset_right = 98.0
+offset_bottom = 1405.0
+text = "fire"
 label_settings = SubResource("LabelSettings_choun")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ThunderLabel" type="Label" parent="UI" unique_id=388655732]
+layout_mode = 0
+offset_left = 32.0
+offset_top = 1423.0
+offset_right = 150.0
+offset_bottom = 1465.0
+text = "thunder"
+label_settings = SubResource("LabelSettings_ya4ey")
 horizontal_alignment = 1
 vertical_alignment = 1
 

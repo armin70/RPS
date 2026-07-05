@@ -9,6 +9,7 @@ const ROCK = preload("uid://dx1kcjudo0gxe")
 const PAPER = preload("uid://cocrlxvcogpqs")
 const SCISSORS = preload("uid://c43c7km5wekoc")
 var unlocked_items = []
+var locked_items = []
 var current_item_number =0
 var rps = ['Rock','Paper','Scissors']
 var variations =  ["fire", "water", "thunder"]
@@ -20,19 +21,22 @@ func _ready() -> void:
 
 func get_random_unlock():
 	unlocked_items = []
+	locked_items = []
 	var numbers = [0, 1, 2, 3]
 	numbers.shuffle()
 	for i in range(0,2):
 		unlocked_items.append(numbers[i])
+	for i in range(2,4):
+		locked_items.append(numbers[i])
 	print(unlocked_items)
+	print(locked_items)
 	await get_tree().create_timer(1).timeout
-	hide_locks()
+	set_locks()
 
 func add_to_placeholder(choices):
 	var selected_scene
 	var index = -1
 	var empty_places = []
-	print("choicessssssssssss",choices)
 	await get_tree().create_timer(.5).timeout
 	for i in range(0,4):
 		print("pre empty",placeholders[i].get_children())
@@ -67,11 +71,11 @@ func add_to_placeholder(choices):
 func full_deck_generator():
 	var card
 	var choice
-	for i in range(0,10):
+	for i in range(0,30):
 		choice = rps.pick_random()
 		card = [choice, ""]
 		full_deck.append(card)
-	for i in range(0,10):
+	for i in range(0,30):
 		for variation in variations:
 			choice = rps.pick_random()
 			card = [choice, variation]
@@ -128,36 +132,54 @@ func generate_RPS():
 	add_to_placeholder(current_deck)
 	get_random_unlock()
 
-func hide_locks():
-	print("unlocked_items ", unlocked_items)
-	for i in unlocked_items:
-		print("IIIIIIIIIIIIIII  ", i)
+func set_locks():
+	for i in locked_items:
 		var children = placeholders[i].get_children()
-		print("children: ", children)
+		children[0].show_lock()
+	for i in unlocked_items:
+		var children = placeholders[i].get_children()
 		children[0].hide_lock()
-
 func remove_type(type_name: String):
 	var targets
-	var buff
+	var buff = []
 	if type_name == "Rock":
 		targets = get_tree().get_nodes_in_group("Scissors")
 		#current_deck = current_deck.filter(func(item): return item != "Scissors")
-		buff = targets.size()
+		#buff = targets.size()
 		#empty_placeholder("Scissors")
 	elif type_name == "Paper":
 		targets = get_tree().get_nodes_in_group("Rock")
 		#current_deck = current_deck.filter(func(item): return item != "Rock")
-		buff = targets.size()
+		#buff = targets.size()
 		#empty_placeholder("Rock")
 		
 	elif type_name == "Scissors":
 		targets = get_tree().get_nodes_in_group("Paper")
 		#current_deck = current_deck.filter(func(item): return item != "Paper")
-		buff = targets.size()
+		#buff = targets.size()
 		#empty_placeholder("Paper")
 		
 	else:
 		print('cant catch')
+	if targets:
+		for target in targets:
+			if target.effected =="fire":
+				buff.append(1.75)
+				target.get_buff(1.75)
+				get_parent().add_juice(5,"fire")
+			elif target.effected =="water":
+				buff.append(1.75)
+				target.get_buff(1.75)
+				get_parent().add_juice(5,"water")
+			elif target.effected =="thunder":
+				buff.append(1.75)
+				target.get_buff(1.75)
+				get_parent().add_juice(5,"thunder")
+				
+			else:
+				buff.append(1)
+				target.get_buff(1)
+				
 	current_item_number -= targets.size()
 	print("current_item_number remove type ",current_item_number)
 	get_parent().multiplier = buff
@@ -176,20 +198,33 @@ func wait_to_finish_animation(targets):
 
 func get_debuff(type_name):
 	var targets
-	var debuff
+	var debuff = []
 	if type_name == "Rock":
 		targets = get_tree().get_nodes_in_group("Paper")
-		debuff = targets.size()
+		#debuff = targets.size()
 	elif type_name == "Paper":
 		targets = get_tree().get_nodes_in_group("Scissors")
-		debuff = targets.size()
+		#debuff = targets.size()
 	elif type_name == "Scissors":
 		targets = get_tree().get_nodes_in_group("Rock")
-		debuff = targets.size()
-	print("targets:",targets)
+		#debuff = targets.size()
+	#print("targets:",targets)
 	for node in targets:
 		node.get_debuff("-1")
+	if targets:
+		for node in targets:
+			if node.effected:
+				if node.effected != "":
+					debuff.append(1.25)
+					node.get_debuff("-1.25")
+				print("debuffed:",debuff )
+			else:
+				debuff.append(.5)
+				node.get_debuff("-1")
+				print("debuffed:",debuff )
+	#return debuff
 	get_parent().debuff = debuff
+
 
 func fill_free_space():
 	print("filled")

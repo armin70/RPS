@@ -1,17 +1,21 @@
 extends Node2D
-@onready var player_hp_label : Label = $UI/PlayerHP
-@onready var bot_hp_label : Label = $UI/BotHP
-@export var max_aspect : float = 1.0
 
-var player_hp := 50
-var bot_hp := 50
-var max_hp := 50
+@export var max_aspect : float = 1.0
+@onready var player_point_label: Label = $UI/PlayerPoint
+@onready var bot_point_label: Label = $UI/BotPoint
+
+var player_point := 0
+var bot_point := 0
+var target_point := 200
 var is_game_running = true
 var bot_current_card = ""
 var player_current_card = ""
 var multiplier = 0
 var debuff = 0
 var game_finished := false
+var fire_juice = 0
+var water_juice = 0
+var thunder_juice = 0
 # Called when the node enters the scene tree for the first time.
 #func _ready() -> void:
 	#set_aspect()
@@ -56,74 +60,55 @@ func play_popup_effect(label):
 	label.modulate.a = 1.0
 	label.scale = Vector2.ONE
 
-
+func add_juice(juice,type):
+	if type == "fire":
+		fire_juice += juice
+		$UI/FireLabel.text = "fire: " + str(fire_juice)
+	elif type == "water":
+		water_juice += juice
+		$UI/WaterLabel.text = "water: " + str(water_juice)
+	elif type == "thunder":
+		thunder_juice += juice
+		$UI/ThunderLabel.text = "thunder: " + str(thunder_juice)
 
 
 func submit_card(owner: String):
-	var damage = 6
-	#$WordDamage.text = str(damage)
-	#play_popup_effect($WordDamage)
-	#await play_popup_effect($WordDamage)
-	#$WordDamage.text = ""
+	var point = 6
 	$RPSContainer.roll_jackpot()
 	await get_tree().create_timer(1).timeout
 	is_game_running = false
 	if owner == "player":
-		bot_hp -= damage
-		$UI/BotHPDamage.text = "-" + str(damage)
-		$UI/BotHPDamage.modulate = Color(1, 0.3, 0.3)
-		play_popup_effect($UI/BotHPDamage)
+		player_point += point
 		update_hp_ui()
 		await get_tree().create_timer(.4).timeout
 		$RPSContainer.remove_type(player_current_card)
 		
-		for i in range(0,multiplier):
-			await get_tree().create_timer(.5).timeout
-			$UI/BotHPDamage.text = "-" + str(damage)
-			$UI/BotHPDamage.modulate = Color(1, 0.3, 0.3)
-			play_popup_effect($UI/BotHPDamage)
-			
-			bot_hp -= damage
+		for i in multiplier:
+			player_point += i * point
 			update_hp_ui()
 		await get_tree().create_timer(.5).timeout
-		$UI/BotHPDamage.text = "+" + str(debuff)
-		$UI/BotHPDamage.modulate = Color(0.0, 0.536, 0.287, 1.0)
-		bot_hp += debuff
-		play_popup_effect($UI/BotHPDamage)
+		if debuff:
+			for i in debuff:
+				player_point -= i * point
+		
 		
 		$RPSContainer.get_debuff(player_current_card)
 		update_hp_ui()
 		
-		var bar = $UI/BotHP
-		bar.modulate = Color(1, 0.3, 0.3)
-		create_tween().tween_property(bar, "modulate", Color(1,1,1), 0.4)
-		print('playeeeeeeeeeer:',(multiplier  * damage) - debuff)
 	else:
-		player_hp -= damage
+		bot_point += point
 		update_hp_ui()
-		play_popup_effect($UI/PlayerHPDamage)
-		$UI/PlayerHPDamage.text = "-" + str(damage)
-		$UI/PlayerHPDamage.modulate = Color(1, 0.3, 0.3)
-		await get_tree().create_timer(.4).timeout
 		$RPSContainer.remove_type(bot_current_card)
-		for i in range(0,multiplier):
+		for i in multiplier:
 			await get_tree().create_timer(.5).timeout
-			play_popup_effect($UI/PlayerHPDamage)
-			$UI/PlayerHPDamage.text = "-" + str(damage)
-			$UI/PlayerHPDamage.modulate = Color(1, 0.3, 0.3)
-			player_hp -= damage
+			bot_point += i*point
 			update_hp_ui()
 		await get_tree().create_timer(.5).timeout
-		player_hp += debuff
-		play_popup_effect($UI/PlayerHPDamage)
-		$UI/PlayerHPDamage.text = "+" + str(debuff)
-		$UI/PlayerHPDamage.modulate = Color(0.0, 0.536, 0.287, 1.0)
-		$RPSContainer.get_debuff(bot_current_card)
+		if debuff:
+			for i in debuff:
+				bot_point -= i * point
 		update_hp_ui()
-		var bar = $"PlayerHPBar"
-		bar.modulate = Color(1, 0.3, 0.3)
-		create_tween().tween_property(bar, "modulate", Color(1,1,1), 0.4)
-		print('boooooooooot:',(multiplier  * damage) - debuff)
+
 	multiplier = 0
 	is_game_running = true
 	
@@ -133,7 +118,7 @@ func submit_card(owner: String):
 
 func check_game_over():
 
-	if player_hp <= 0:
+	if player_point >= target_point:
 		game_finished = true
 		#get_parent().get_parent().game_finished = true
 		#get_parent().get_parent().turn_active = false
@@ -144,7 +129,7 @@ func check_game_over():
 		#end_popup.popup_centered()
 		is_game_running = false
 		get_tree().paused = true
-	elif bot_hp <= 0:
+	elif bot_point >= target_point:
 		game_finished = true
 		#get_parent().get_parent().game_finished = true
 		#get_parent().get_parent().turn_active = false
@@ -158,11 +143,9 @@ func check_game_over():
 
 
 func update_hp_ui():
-	player_hp_label.text = str(player_hp)
-	bot_hp_label.text = str(bot_hp)
+	player_point_label.text = str(player_point)
+	bot_point_label.text = str(bot_point)
 
-	create_tween().tween_property($"PlayerHPBar", "value", player_hp, 0.3)
-	create_tween().tween_property($UI/BotHP, "value", bot_hp, 0.3)
 
 func _on_submit_pressed() -> void:
 	submit_card("player")

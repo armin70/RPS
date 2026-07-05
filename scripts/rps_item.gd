@@ -13,9 +13,12 @@ func play_break_animation():
 
 
 
+func show_lock():
+	$Lock.visible = true
+
 func hide_lock():
-	print("hide")
 	$Lock.visible = false
+
 
 func get_debuff(debuff):
 	print("debuff value: ", debuff)
