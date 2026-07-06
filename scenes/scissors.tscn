@@ -5,8 +5,8 @@
 [ext_resource type="Texture2D" uid="uid://c0gi5bgqioov2" path="res://assets/RPS_item/hot scissor 12fps.png" id="2_t4qim"]
 [ext_resource type="Texture2D" uid="uid://n6ap3lyq22b6" path="res://assets/RPS_item/electric scissor 7fps.png" id="3_tui8a"]
 [ext_resource type="Texture2D" uid="uid://cg42218bi1166" path="res://assets/RPS_item/scissor.png" id="4_tui8a"]
-[ext_resource type="Texture2D" uid="uid://d3dikohekbndb" path="res://assets/lock.png" id="6_6hbjw"]
 [ext_resource type="Texture2D" uid="uid://dqyedvr2bguta" path="res://assets/RPS_item/rotting scisor 9fps.png" id="6_ix4kx"]
+[ext_resource type="Texture2D" uid="uid://cnfwo0uovqb10" path="res://assets/lock (1).png" id="7_ix4kx"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_6hbjw"]
 atlas = ExtResource("1_p3ljg")
@@ -415,7 +415,7 @@ font_color = Color(0.40392157, 1, 0.36862746, 1)
 script = ExtResource("1_o3ui7")
 
 [node name="animation" type="AnimatedSprite2D" parent="." unique_id=927427797]
-position = Vector2(-4, -4)
+position = Vector2(-1, -3)
 sprite_frames = SubResource("SpriteFrames_rmkyt")
 animation = &"water"
 autoplay = "idle"
@@ -438,5 +438,4 @@ label_settings = SubResource("LabelSettings_g4oad")
 [node name="Lock" type="Sprite2D" parent="." unique_id=805037885]
 visible = false
 position = Vector2(-5, 165)
-scale = Vector2(0.23046875, 0.23046875)
-texture = ExtResource("6_6hbjw")
+texture = ExtResource("7_ix4kx")

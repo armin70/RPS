@@ -3,7 +3,12 @@ extends Node2D
 @export var max_aspect : float = 1.0
 @onready var player_point_label: Label = $UI/PlayerPoint
 @onready var bot_point_label: Label = $UI/BotPoint
+@onready var playermult: Label = $UI/Playermult
+@onready var playerscore: Label = $UI/Playerscore
+@onready var playergold: Label = $UI/Playergold
 
+var player_score := 0
+var player_gold := 0
 var player_point := 0
 var bot_point := 0
 var target_point := 200
@@ -72,6 +77,41 @@ func add_juice(juice,type):
 		$UI/ThunderLabel.text = "thunder: " + str(thunder_juice)
 
 
+func calculate_points(owner: String):
+	var point = 10
+	var mult = 1
+	$RPSContainer.roll_jackpot()
+	$RPSContainer.get_debuff(player_current_card)
+	await get_tree().create_timer(.4).timeout
+	$RPSContainer.remove_type(player_current_card)
+	update_hp_ui()
+	if debuff:
+		for i in debuff:
+			point -= i
+	player_point_label.text = str(point)
+	await get_tree().create_timer(1).timeout
+	is_game_running = false
+	if owner == "player":
+		for i in range(0,multiplier.size()):
+			point += point
+			player_point_label.text = str(point)
+			await get_tree().create_timer(.4).timeout
+		player_gold += point
+		playergold.text = "gold: " + str(player_gold)
+		for i in multiplier:
+			mult += i
+			playermult.text = str(mult)
+			await get_tree().create_timer(.4).timeout
+		player_score += point * mult
+		playerscore.text = str(player_score)
+		await get_tree().create_timer(1.4).timeout
+
+	player_point_label.text = str(0)
+	playermult.text = str(0)
+	is_game_running = true
+	
+	update_hp_ui()
+	check_game_over()
 func submit_card(owner: String):
 	var point = 6
 	$RPSContainer.roll_jackpot()
@@ -143,9 +183,9 @@ func check_game_over():
 
 
 func update_hp_ui():
-	player_point_label.text = str(player_point)
+	playerscore.text = str(player_score)
 	bot_point_label.text = str(bot_point)
 
 
 func _on_submit_pressed() -> void:
-	submit_card("player")
+	calculate_points("player")

@@ -164,16 +164,16 @@ func remove_type(type_name: String):
 	if targets:
 		for target in targets:
 			if target.effected =="fire":
-				buff.append(1.75)
-				target.get_buff(1.75)
+				buff.append(2)
+				target.get_buff(2)
 				get_parent().add_juice(5,"fire")
 			elif target.effected =="water":
-				buff.append(1.75)
-				target.get_buff(1.75)
+				buff.append(2)
+				target.get_buff(2)
 				get_parent().add_juice(5,"water")
 			elif target.effected =="thunder":
-				buff.append(1.75)
-				target.get_buff(1.75)
+				buff.append(2)
+				target.get_buff(2)
 				get_parent().add_juice(5,"thunder")
 				
 			else:
@@ -215,12 +215,12 @@ func get_debuff(type_name):
 		for node in targets:
 			if node.effected:
 				if node.effected != "":
-					debuff.append(1.25)
-					node.get_debuff("-1.25")
+					debuff.append(3)
+					node.get_debuff("-3")
 				print("debuffed:",debuff )
 			else:
-				debuff.append(.5)
-				node.get_debuff("-1")
+				debuff.append(2)
+				node.get_debuff("-2")
 				print("debuffed:",debuff )
 	#return debuff
 	get_parent().debuff = debuff

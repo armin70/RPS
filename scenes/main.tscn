@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bhe3ip128r65u" path="res://main.gd" id="1_0wfyh"]
 [ext_resource type="PackedScene" uid="uid://ds8qtausq5e8i" path="res://scenes/rps__container.tscn" id="1_o5qli"]
-[ext_resource type="Texture2D" uid="uid://5dpoa61k6jty" path="res://assets/jackpot version 0.0.1.png" id="2_o6xl0"]
+[ext_resource type="Texture2D" uid="uid://bk4ckcq3t0wq0" path="res://assets/version 0.0.1 vertical.png" id="2_o6xl0"]
 [ext_resource type="PackedScene" uid="uid://bgtr5jv4gquuf" path="res://scenes/hand.tscn" id="3_sugp2"]
 [ext_resource type="Texture2D" uid="uid://lxbpxs8rhy8c" path="res://assets/bot.png" id="5_tefeu"]
 [ext_resource type="Texture2D" uid="uid://tjqao4si7ix0" path="res://assets/player.png" id="6_o6xl0"]
@@ -52,36 +52,40 @@ font_size = 30
 [node name="Main" type="Node2D" unique_id=993622164]
 script = ExtResource("1_0wfyh")
 
-[node name="bg" type="Sprite2D" parent="." unique_id=235117010]
-position = Vector2(540, 955)
+[node name="bg" type="Sprite2D" parent="." unique_id=819887401]
+position = Vector2(959, 533)
 texture = ExtResource("2_o6xl0")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1158986219]
-position = Vector2(534, 960)
+position = Vector2(960, 538)
 
 [node name="RPSContainer" parent="." unique_id=917461322 instance=ExtResource("1_o5qli")]
-position = Vector2(138, 951)
+position = Vector2(660, 487.00003)
+scale = Vector2(0.77166605, 0.77166605)
 
 [node name="hand" parent="." unique_id=2013734100 instance=ExtResource("3_sugp2")]
-position = Vector2(342, 1576)
+position = Vector2(801, 868)
 
 [node name="UI" type="Control" parent="." unique_id=1608464452]
 layout_mode = 3
 anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_left = 467.0
+offset_top = -210.0
+offset_right = 507.0
+offset_bottom = -170.0
 
 [node name="submit" type="Button" parent="UI" unique_id=1145507938]
 layout_mode = 0
-offset_left = 823.0
-offset_top = 1246.0
-offset_right = 1052.0
-offset_bottom = 1473.0
+offset_left = 1150.0
+offset_top = 665.0
+offset_right = 1379.0
+offset_bottom = 892.0
 theme_override_styles/normal = SubResource("StyleBoxFlat_o6xl0")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_o6xl0")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_85g3d")
 
 [node name="BotHpBar" type="ProgressBar" parent="UI" unique_id=1766619303]
+visible = false
 layout_mode = 0
 offset_left = 62.0
 offset_top = 168.0
@@ -95,6 +99,7 @@ fill_mode = 3
 show_percentage = false
 
 [node name="PlayerHpBar" type="ProgressBar" parent="UI" unique_id=754539585]
+visible = false
 layout_mode = 0
 offset_left = 561.0
 offset_top = 172.0
@@ -108,30 +113,63 @@ fill_mode = 3
 show_percentage = false
 
 [node name="Bot" type="Sprite2D" parent="UI" unique_id=1462345962]
-position = Vector2(149, 550)
+position = Vector2(-339, 1247)
 texture = ExtResource("5_tefeu")
 
 [node name="Player" type="Sprite2D" parent="UI" unique_id=951120045]
-position = Vector2(674, 551)
+position = Vector2(-328, 706)
 texture = ExtResource("6_o6xl0")
 
 [node name="BotPoint" type="Label" parent="UI" unique_id=189625205]
 layout_mode = 0
-offset_left = 256.0
-offset_top = 259.0
-offset_right = 298.0
-offset_bottom = 323.0
+offset_left = -235.0
+offset_top = 914.0
+offset_right = -193.0
+offset_bottom = 978.0
 text = "0"
 label_settings = SubResource("LabelSettings_tipki")
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="Playermult" type="Label" parent="UI" unique_id=737584204]
+layout_mode = 0
+offset_left = -214.0
+offset_top = 606.0
+offset_right = -142.0
+offset_bottom = 670.0
+text = "0"
+label_settings = SubResource("LabelSettings_o6xl0")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Playerscore" type="Label" parent="UI" unique_id=926391306]
+layout_mode = 0
+offset_left = -255.0
+offset_top = 513.0
+offset_right = -213.0
+offset_bottom = 577.0
+text = "0"
+label_settings = SubResource("LabelSettings_o6xl0")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Playergold" type="Label" parent="UI" unique_id=868296156]
+layout_mode = 0
+offset_left = -278.0
+offset_top = 357.0
+offset_right = -164.0
+offset_bottom = 421.0
+text = "gold: 0"
+label_settings = SubResource("LabelSettings_o6xl0")
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="PlayerPoint" type="Label" parent="UI" unique_id=382707334]
 layout_mode = 0
-offset_left = 757.0
-offset_top = 265.0
-offset_right = 799.0
-offset_bottom = 329.0
+offset_left = -307.0
+offset_top = 602.0
+offset_right = -265.0
+offset_bottom = 666.0
 text = "0"
 label_settings = SubResource("LabelSettings_o6xl0")
 horizontal_alignment = 1
@@ -139,10 +177,10 @@ vertical_alignment = 1
 
 [node name="WaterLabel" type="Label" parent="UI" unique_id=66207840]
 layout_mode = 0
-offset_left = 28.0
-offset_top = 1303.0
-offset_right = 68.0
-offset_bottom = 1326.0
+offset_left = 1284.0
+offset_top = 357.0
+offset_right = 1368.0
+offset_bottom = 399.0
 text = "water"
 label_settings = SubResource("LabelSettings_85g3d")
 horizontal_alignment = 1
@@ -150,10 +188,10 @@ vertical_alignment = 1
 
 [node name="FireLabel" type="Label" parent="UI" unique_id=88099990]
 layout_mode = 0
-offset_left = 24.0
-offset_top = 1363.0
-offset_right = 98.0
-offset_bottom = 1405.0
+offset_left = 1280.0
+offset_top = 417.0
+offset_right = 1354.0
+offset_bottom = 459.0
 text = "fire"
 label_settings = SubResource("LabelSettings_choun")
 horizontal_alignment = 1
@@ -161,10 +199,10 @@ vertical_alignment = 1
 
 [node name="ThunderLabel" type="Label" parent="UI" unique_id=388655732]
 layout_mode = 0
-offset_left = 32.0
-offset_top = 1423.0
-offset_right = 150.0
-offset_bottom = 1465.0
+offset_left = 1288.0
+offset_top = 477.0
+offset_right = 1406.0
+offset_bottom = 519.0
 text = "thunder"
 label_settings = SubResource("LabelSettings_ya4ey")
 horizontal_alignment = 1

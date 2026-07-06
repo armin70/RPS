@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://p3wk5oyhi8jo" path="res://assets/RPS_item/rock.png" id="3_vqvgd"]
 [ext_resource type="Texture2D" uid="uid://cvscd652frvyx" path="res://assets/RPS_item/wet rock 12fps.png" id="4_rmkyt"]
 [ext_resource type="Texture2D" uid="uid://dh85426hp1fn8" path="res://assets/RPS_item/rock electric explotion 15fps.png" id="5_rmkyt"]
-[ext_resource type="Texture2D" uid="uid://d3dikohekbndb" path="res://assets/lock.png" id="6_vqvgd"]
+[ext_resource type="Texture2D" uid="uid://cnfwo0uovqb10" path="res://assets/lock (1).png" id="7_rmkyt"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_h6o6c"]
 atlas = ExtResource("1_872ht")
@@ -544,5 +544,4 @@ label_settings = SubResource("LabelSettings_p2d0s")
 [node name="Lock" type="Sprite2D" parent="." unique_id=14255215]
 visible = false
 position = Vector2(-1, 169)
-scale = Vector2(0.23046875, 0.23046875)
-texture = ExtResource("6_vqvgd")
+texture = ExtResource("7_rmkyt")

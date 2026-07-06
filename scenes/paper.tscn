@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://yyo2tjvt7xsj" path="res://assets/RPS_item/paper burning 6fps.png" id="3_g2531"]
 [ext_resource type="Texture2D" uid="uid://csb2jsfd8csp5" path="res://assets/RPS_item/electric paper 11fps.png" id="3_jhmja"]
 [ext_resource type="Texture2D" uid="uid://dsjk1lkp2fdti" path="res://assets/RPS_item/paper geting wet 5fps.png" id="4_g4oad"]
-[ext_resource type="Texture2D" uid="uid://d3dikohekbndb" path="res://assets/lock.png" id="6_pohdc"]
+[ext_resource type="Texture2D" uid="uid://cnfwo0uovqb10" path="res://assets/lock (1).png" id="7_g2531"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jhmja"]
 atlas = ExtResource("2_g4oad")
@@ -473,5 +473,4 @@ label_settings = SubResource("LabelSettings_g4oad")
 [node name="Lock" type="Sprite2D" parent="." unique_id=903904176]
 visible = false
 position = Vector2(-1, 169)
-scale = Vector2(0.23046875, 0.23046875)
-texture = ExtResource("6_pohdc")
+texture = ExtResource("7_g2531")
