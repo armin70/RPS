@@ -122,12 +122,34 @@ texture = ExtResource("6_o6xl0")
 
 [node name="BotPoint" type="Label" parent="UI" unique_id=189625205]
 layout_mode = 0
-offset_left = -235.0
-offset_top = 914.0
-offset_right = -193.0
-offset_bottom = 978.0
+offset_left = -282.0
+offset_top = 1078.0
+offset_right = -240.0
+offset_bottom = 1142.0
 text = "0"
 label_settings = SubResource("LabelSettings_tipki")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Botmult" type="Label" parent="UI" unique_id=1227857276]
+layout_mode = 0
+offset_left = -188.0
+offset_top = 1078.0
+offset_right = -116.0
+offset_bottom = 1142.0
+text = "0"
+label_settings = SubResource("LabelSettings_o6xl0")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Botscore" type="Label" parent="UI" unique_id=110430483]
+layout_mode = 0
+offset_left = -235.0
+offset_top = 953.0
+offset_right = -193.0
+offset_bottom = 1017.0
+text = "0"
+label_settings = SubResource("LabelSettings_o6xl0")
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -208,4 +230,34 @@ label_settings = SubResource("LabelSettings_ya4ey")
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="WaterPotion" type="Button" parent="UI" unique_id=521024164]
+visible = false
+layout_mode = 0
+offset_left = 1195.0
+offset_top = 373.0
+offset_right = 1248.0
+offset_bottom = 404.0
+text = "water"
+
+[node name="FirePotion" type="Button" parent="UI" unique_id=429586825]
+visible = false
+layout_mode = 0
+offset_left = 1198.0
+offset_top = 426.0
+offset_right = 1251.0
+offset_bottom = 457.0
+text = "fire"
+
+[node name="ThunderPotion" type="Button" parent="UI" unique_id=141809159]
+visible = false
+layout_mode = 0
+offset_left = 1200.0
+offset_top = 484.0
+offset_right = 1253.0
+offset_bottom = 515.0
+text = "thunder"
+
 [connection signal="pressed" from="UI/submit" to="." method="_on_submit_pressed"]
+[connection signal="pressed" from="UI/WaterPotion" to="RPSContainer" method="_on_water_potion_pressed"]
+[connection signal="pressed" from="UI/FirePotion" to="RPSContainer" method="_on_fire_potion_pressed"]
+[connection signal="pressed" from="UI/ThunderPotion" to="RPSContainer" method="_on_thunder_potion_pressed"]

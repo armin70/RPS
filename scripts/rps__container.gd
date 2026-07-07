@@ -29,30 +29,48 @@ func get_random_unlock():
 	for i in range(2,4):
 		locked_items.append(numbers[i])
 	print(unlocked_items)
-	print(locked_items)
+	print("locked_items ",locked_items)
+	
 	await get_tree().create_timer(1).timeout
+	get_locked_items()
 	set_locks()
+
+func get_locked_items():
+	var locked =[]
+	print("locked_items in get lock",locked_items)
+	
+	for i in locked_items:
+		var children = placeholders[i].get_children()
+		locked.append(children[0].type)
+	return locked
 
 func add_to_placeholder(choices):
 	var selected_scene
 	var index = -1
 	var empty_places = []
-	await get_tree().create_timer(.5).timeout
+	await get_tree().create_timer(1).timeout
 	for i in range(0,4):
 		print("pre empty",placeholders[i].get_children())
 		if placeholders[i].get_children().size() == 0:
 			print("empty",i)
 			empty_places.append(i)
 	print("empty: ", empty_places)
+	print("choices:", choices)
 	for choice in choices:
 		index += 1
 		var i = empty_places[index]
 		if choice[0] == 'Rock':
 			selected_scene =  ROCK.instantiate()
+			selected_scene.type = "Rock"
+		
 		elif choice[0] == 'Paper':
 			selected_scene = PAPER.instantiate()
+			selected_scene.type = "Paper"
+			
 		elif choice[0] == 'Scissors':
 			selected_scene = SCISSORS.instantiate()
+			selected_scene.type = "Scissors"
+			
 		selected_scene.add_to_group(choice[0])
 
 		placeholders[i].add_child(selected_scene)
@@ -139,6 +157,8 @@ func set_locks():
 	for i in unlocked_items:
 		var children = placeholders[i].get_children()
 		children[0].hide_lock()
+
+	
 func remove_type(type_name: String):
 	var targets
 	var buff = []
@@ -186,9 +206,11 @@ func remove_type(type_name: String):
 	print("buff: ",buff)
 	wait_to_finish_animation(targets)
 	await get_tree().create_timer(2).timeout
-	get_random_unlock()
-		
 	fill_free_space()
+	await get_tree().create_timer(1).timeout
+	
+	get_random_unlock()
+	
 	
 	
 
@@ -239,3 +261,39 @@ func fill_free_space():
 			#current_deck.append(choice)
 		print("new_items",new_items)
 		add_to_placeholder(new_items)
+
+func lock_all():
+	locked_items= [0,1,2,3]
+	unlocked_items = []
+	set_locks()
+	get_parent().thunder_juice = 0
+	$"../UI/ThunderPotion".visible = false
+	$"../UI/ThunderLabel".text = "thunder: " + str(get_parent().thunder_juice)
+
+func reset_board():
+	unlocked_items= [0,1,2,3]
+	locked_items = []
+	roll_jackpot()
+	get_random_unlock()
+	get_parent().fire_juice = 0
+	$"../UI/FirePotion". visible = false
+	$"../UI/FireLabel".text = "fire: " + str(get_parent().fire_juice)
+	
+func swap_locks():
+	var temp = locked_items
+	locked_items = unlocked_items
+	unlocked_items = temp
+	set_locks()
+	get_parent().water_juice = 0
+	$"../UI/WaterPotion".visible = false
+	$"../UI/WaterLabel".text = "water: " + str(get_parent().water_juice)
+func _on_water_potion_pressed() -> void:
+	swap_locks()
+
+
+func _on_fire_potion_pressed() -> void:
+	reset_board()
+
+
+func _on_thunder_potion_pressed() -> void:
+	lock_all()
