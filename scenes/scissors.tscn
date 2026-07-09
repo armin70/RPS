@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://c0gi5bgqioov2" path="res://assets/RPS_item/hot scissor 12fps.png" id="2_t4qim"]
 [ext_resource type="Texture2D" uid="uid://n6ap3lyq22b6" path="res://assets/RPS_item/electric scissor 7fps.png" id="3_tui8a"]
 [ext_resource type="Texture2D" uid="uid://cg42218bi1166" path="res://assets/RPS_item/scissor.png" id="4_tui8a"]
-[ext_resource type="Texture2D" uid="uid://dqyedvr2bguta" path="res://assets/RPS_item/rotting scisor 9fps.png" id="6_ix4kx"]
+[ext_resource type="Texture2D" uid="uid://bue1ruddhfua1" path="res://assets/RPS Animation/Water Scissor 6fps.png" id="6_ix4kx"]
 [ext_resource type="Texture2D" uid="uid://cnfwo0uovqb10" path="res://assets/lock (1).png" id="7_ix4kx"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_6hbjw"]
@@ -210,15 +210,23 @@ region = Rect2(900, 0, 300, 300)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_t2yjx"]
 atlas = ExtResource("6_ix4kx")
-region = Rect2(600, 0, 300, 300)
+region = Rect2(0, 0, 300, 300)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7xl61"]
 atlas = ExtResource("6_ix4kx")
-region = Rect2(0, 300, 300, 300)
+region = Rect2(300, 0, 300, 300)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jph0f"]
 atlas = ExtResource("6_ix4kx")
-region = Rect2(300, 300, 300, 300)
+region = Rect2(600, 0, 300, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_letrb"]
+atlas = ExtResource("6_ix4kx")
+region = Rect2(900, 0, 300, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ndjn4"]
+atlas = ExtResource("6_ix4kx")
+region = Rect2(1200, 0, 300, 300)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_rmkyt"]
 animations = [{
@@ -401,10 +409,16 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_jph0f")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_letrb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ndjn4")
 }],
 "loop": true,
 "name": &"water",
-"speed": 5.0
+"speed": 6.0
 }]
 
 [sub_resource type="LabelSettings" id="LabelSettings_g4oad"]
@@ -415,11 +429,11 @@ font_color = Color(0.40392157, 1, 0.36862746, 1)
 script = ExtResource("1_o3ui7")
 
 [node name="animation" type="AnimatedSprite2D" parent="." unique_id=927427797]
-position = Vector2(-1, -3)
+position = Vector2(-4, -28)
 sprite_frames = SubResource("SpriteFrames_rmkyt")
 animation = &"water"
 autoplay = "idle"
-frame_progress = 0.8649103
+frame_progress = 0.012250907
 
 [node name="Multiplier" type="Label" parent="." unique_id=1844234753]
 offset_left = -27.0
@@ -437,5 +451,6 @@ label_settings = SubResource("LabelSettings_g4oad")
 
 [node name="Lock" type="Sprite2D" parent="." unique_id=805037885]
 visible = false
-position = Vector2(-5, 165)
+position = Vector2(-9, 186)
+scale = Vector2(1.5, 1.5)
 texture = ExtResource("7_ix4kx")

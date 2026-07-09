@@ -20,11 +20,11 @@ const PAPER = preload("uid://d3wdj12472tyi")
 @onready var enchant_effect: Sprite2D = $EnchantEffect
 
 
-const MULT = preload("uid://blgn0fbvf6dlh")
-const STEEL = preload("uid://bui3cdf5nyabh")
-const BONUS = preload("uid://dtrqbc7krbwrl")
-const GOLD = preload("uid://baorueqgaf5x4")
-const LUCKY = preload("uid://gr3tq3ndtqu6")
+const EXTRACT = preload("uid://dbqj7ewcaxapx")
+const GOLD = preload("uid://bx4xgvk76ysmk")
+const MULT = preload("uid://d2lxk0yqgqu04")
+const POINT = preload("uid://dy7ctp7hbq4ri")
+const STEEL = preload("uid://cfy6a4gf6wgvi")
 
 #func _ready() -> void:
 	#if type == 0:
@@ -59,13 +59,13 @@ func get_enchant(e):
 	if e == "mult":
 		selected_enchant =  MULT
 	elif e == "point":
-		selected_enchant = BONUS
+		selected_enchant = POINT
 	elif e == "steel":
 		selected_enchant = STEEL
 	elif e == "gold":
 		selected_enchant = GOLD
 	elif e == "extract":
-		selected_enchant = LUCKY
+		selected_enchant = EXTRACT
 	enchant_effect.texture = selected_enchant
 
 func setup(name: String, texture: Texture2D, card_type: String):

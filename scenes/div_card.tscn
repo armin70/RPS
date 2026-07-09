@@ -4,21 +4,21 @@
 [ext_resource type="Texture2D" uid="uid://cj6fifbx58hk6" path="res://assets/D cards/D Pair.png" id="2_ilkvh"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ilkvh"]
-size = Vector2(189, 264)
+size = Vector2(149, 215)
 
 [node name="div_card" type="Node2D" unique_id=1913186115]
 script = ExtResource("1_ashfq")
 
 [node name="sprite" type="Sprite2D" parent="." unique_id=229785624]
 position = Vector2(132.00006, 181)
-scale = Vector2(0.25, 0.25)
+scale = Vector2(0.2, 0.2)
 texture = ExtResource("2_ilkvh")
 
 [node name="Area2D" type="Area2D" parent="." unique_id=1184210693]
 position = Vector2(-566, -91)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1840142331]
-position = Vector2(697.5, 272)
+position = Vector2(696.5, 272.5)
 shape = SubResource("RectangleShape2D_ilkvh")
 
 [connection signal="input_event" from="Area2D" to="." method="_on_area_2d_input_event"]

@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://d1q2d54w7tbt4" path="res://scripts/rps_item.gd" id="1_vas6c"]
 [ext_resource type="Texture2D" uid="uid://dgxjcxpxmxi4h" path="res://assets/RPS_item/paper.png" id="2_cbjgq"]
 [ext_resource type="Texture2D" uid="uid://vqid51m3utde" path="res://assets/RPS_item/papercut 10fps.png" id="2_g4oad"]
-[ext_resource type="Texture2D" uid="uid://yyo2tjvt7xsj" path="res://assets/RPS_item/paper burning 6fps.png" id="3_g2531"]
+[ext_resource type="Texture2D" uid="uid://dmq0k1bxawdwv" path="res://assets/RPS Animation/fire paper 12fps.png" id="3_g2531"]
 [ext_resource type="Texture2D" uid="uid://csb2jsfd8csp5" path="res://assets/RPS_item/electric paper 11fps.png" id="3_jhmja"]
 [ext_resource type="Texture2D" uid="uid://dsjk1lkp2fdti" path="res://assets/RPS_item/paper geting wet 5fps.png" id="4_g4oad"]
 [ext_resource type="Texture2D" uid="uid://cnfwo0uovqb10" path="res://assets/lock (1).png" id="7_g2531"]
@@ -46,23 +46,39 @@ region = Rect2(2400, 0, 300, 300)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_uc43l"]
 atlas = ExtResource("3_g2531")
-region = Rect2(300, 0, 300, 300)
+region = Rect2(0, 0, 300, 300)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0un1p"]
 atlas = ExtResource("3_g2531")
-region = Rect2(600, 0, 300, 300)
+region = Rect2(300, 0, 300, 300)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_df2uw"]
 atlas = ExtResource("3_g2531")
-region = Rect2(900, 0, 300, 300)
+region = Rect2(600, 0, 300, 300)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_6upgd"]
 atlas = ExtResource("3_g2531")
-region = Rect2(1200, 0, 300, 300)
+region = Rect2(900, 0, 300, 300)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_uq0mu"]
 atlas = ExtResource("3_g2531")
-region = Rect2(1500, 0, 300, 300)
+region = Rect2(1200, 0, 300, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ijx3b"]
+atlas = ExtResource("3_g2531")
+region = Rect2(0, 300, 300, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x6fmm"]
+atlas = ExtResource("3_g2531")
+region = Rect2(300, 300, 300, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vdqmy"]
+atlas = ExtResource("3_g2531")
+region = Rect2(600, 300, 300, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b6x3e"]
+atlas = ExtResource("3_g2531")
+region = Rect2(900, 300, 300, 300)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_invp3"]
 atlas = ExtResource("2_cbjgq")
@@ -283,23 +299,20 @@ animations = [{
 "texture": SubResource("AtlasTexture_uq0mu")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_uq0mu")
+"texture": SubResource("AtlasTexture_ijx3b")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_6upgd")
+"texture": SubResource("AtlasTexture_x6fmm")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_df2uw")
+"texture": SubResource("AtlasTexture_vdqmy")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_0un1p")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_uc43l")
+"texture": SubResource("AtlasTexture_b6x3e")
 }],
 "loop": true,
 "name": &"fire",
-"speed": 10.0
+"speed": 12.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -454,7 +467,7 @@ script = ExtResource("1_vas6c")
 sprite_frames = SubResource("SpriteFrames_rmkyt")
 animation = &"fire"
 autoplay = "idle"
-frame_progress = 0.037811916
+frame_progress = 0.4409784
 
 [node name="Multiplier" type="Label" parent="." unique_id=1250212555]
 offset_left = -26.0
@@ -472,5 +485,6 @@ label_settings = SubResource("LabelSettings_g4oad")
 
 [node name="Lock" type="Sprite2D" parent="." unique_id=903904176]
 visible = false
-position = Vector2(-1, 169)
+position = Vector2(-1, 193)
+scale = Vector2(1.5, 1.5)
 texture = ExtResource("7_g2531")

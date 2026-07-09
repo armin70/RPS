@@ -8,7 +8,7 @@ var div_spacing = 210
 var start_div_position = Vector2(200, 100)
 
 var hand_spacing = 180
-var start_hand_position = Vector2(400, 800)
+var start_hand_position = Vector2(400, 650)
 
 const D_PAPER = preload("uid://lwj5wpo5rwvj")
 const D_ROCK = preload("uid://bagur52lp0kd")
@@ -22,6 +22,12 @@ const PAPER = preload("uid://d3wdj12472tyi")
 const PRS = preload("uid://srd31jafvknv")
 const RPS = preload("uid://bbxl4mxpqfex1")
 const SPR = preload("uid://vraqgid3bm3e")
+const BOOK = preload("uid://ohxowre6p0b5")
+const WHEELBARROW = preload("uid://8kelx71ch6lc")
+const TAILOR_BOX = preload("uid://vi8kq3bemh41")
+const CREDIT_CARD = preload("uid://cliks50adfomc")
+const STATUE = preload("uid://63bpqm6ogal8")
+const NEEDLE = preload("uid://b8aqd8euy4e2p")
 
 
 func _ready() -> void:
@@ -37,6 +43,12 @@ func _ready() -> void:
 	create_hand_card(4,"PRS",PRS )
 	create_hand_card(5,"RPS",RPS )
 	create_hand_card(6,"SPR",SPR )
+	create_hand_card(7,"Book",BOOK )
+	create_hand_card(8,"WheelBarrow",WHEELBARROW )
+	create_hand_card(9,"TailorBox",TAILOR_BOX )
+	create_hand_card(10,"CreditCard",CREDIT_CARD )
+	create_hand_card(11,"Statue",STATUE )
+	create_hand_card(12,"Needle",NEEDLE )
 
 
 
@@ -44,8 +56,12 @@ func create_hand_card(i,name,texture):
 	var card = HAND_CARD_MENU.instantiate()
 
 	card.setup(name, texture)
-
-	card.position = start_hand_position + Vector2(i * hand_spacing, 0)
+	if i <= 6:
+		card.position = start_hand_position + Vector2(i * hand_spacing, 0)
+	else:
+		var j = i - 6
+		card.position = start_hand_position + Vector2(j * hand_spacing, 300)
+		
 
 	add_child(card)
 
@@ -82,6 +98,8 @@ func remove_hand_card(card):
 
 func _on_button_pressed() -> void:
 	if hand_cards.size() ==  4 and div_cards.size() == 2:
+		$start.play("start")
+		await get_tree().create_timer(2.5).timeout
 		get_tree().change_scene_to_file("res://scenes/main.tscn")
 		GameData.div_cards = div_cards
 		GameData.hand_cards = hand_cards

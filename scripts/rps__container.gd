@@ -14,6 +14,7 @@ var current_item_number =0
 var rps = ['Rock','Paper','Scissors']
 var variations =  ["fire", "water", "thunder"]
 var full_deck = []
+@onready var jackpot_effect: AnimatedSprite2D = $"../jackpot_effect"
 func _ready() -> void:
 	full_deck_generator()
 	generate_RPS()
@@ -57,6 +58,7 @@ func add_to_placeholder(choices):
 	print("empty: ", empty_places)
 	print("choices:", choices)
 	for choice in choices:
+		current_item_number +=1
 		index += 1
 		var i = empty_places[index]
 		if choice[0] == 'Rock':
@@ -83,7 +85,6 @@ func add_to_placeholder(choices):
 		elif choice[1] == 'thunder':
 			print('thunder')
 			selected_scene.play_thunder_animation()
-		current_item_number +=1
 
 
 func full_deck_generator():
@@ -159,7 +160,28 @@ func set_locks():
 		var children = placeholders[i].get_children()
 		children[0].hide_lock()
 
-	
+func collect_similar_type(type_name: String):
+	var targets
+	var buff = []
+	print("collect_similar_type ",type_name )
+	if type_name == "Rock":
+		targets = get_tree().get_nodes_in_group("Rock")
+	elif type_name == "Paper":
+		targets = get_tree().get_nodes_in_group("Paper")
+	elif type_name == "Scissors":
+		targets = get_tree().get_nodes_in_group("Scissors")
+	var mult = targets.size()
+	print("current_item_number before ", current_item_number)
+	current_item_number -= targets.size()
+	#wait_to_finish_animation(targets)
+	for node in targets:
+		node.queue_free()
+	await get_tree().create_timer(2).timeout
+	fill_free_space()
+	await get_tree().create_timer(1).timeout
+	get_random_unlock()
+	return mult
+
 func remove_type(type_name: String):
 	var targets
 	var buff = []
@@ -216,8 +238,9 @@ func remove_type(type_name: String):
 	
 
 func wait_to_finish_animation(targets):
-	for node in targets:
-		node.play_break_animation()
+	if targets:
+		for node in targets:
+			node.play_break_animation()
 
 func get_debuff(type_name):
 	var targets
@@ -289,14 +312,23 @@ func swap_locks():
 	$"../UI/WaterPotion".visible = false
 	$"../UI/WaterLabel".text = "water: " + str(get_parent().water_juice)
 
-
 func _on_water_potion_pressed() -> void:
 	swap_locks()
+	jackpot_effect.play("water")
+	$"../water_potion".play("idle")
+	
 
 
 func _on_fire_potion_pressed() -> void:
 	reset_board()
-
+	jackpot_effect.play("fire")
+	$"../fire_potion".play("idle")
+	
+	
 
 func _on_thunder_potion_pressed() -> void:
 	lock_all()
+	jackpot_effect.play("thunder")
+	$"../thunder_potion".play("idle")
+	
+	
