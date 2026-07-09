@@ -1,21 +1,26 @@
 [gd_scene format=3 uid="uid://0ijpvowri8wi"]
 
 [ext_resource type="Script" uid="uid://d3aantqfwyerc" path="res://scripts/card.gd" id="1_6u4wf"]
-[ext_resource type="Texture2D" uid="uid://dgxjcxpxmxi4h" path="res://assets/RPS_item/paper.png" id="1_d81rb"]
+[ext_resource type="Texture2D" uid="uid://c63hfh6k1tb42" path="res://assets/1.png" id="2_6u4wf"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6u4wf"]
-size = Vector2(239, 273)
+size = Vector2(227.5, 311.5)
 
 [node name="card" type="Node2D" unique_id=1860040782]
 script = ExtResource("1_6u4wf")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1603671225]
-texture = ExtResource("1_d81rb")
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("2_6u4wf")
+
+[node name="EnchantEffect" type="Sprite2D" parent="." unique_id=1621885920]
+position = Vector2(0.2500019, -0.25000155)
+scale = Vector2(0.29533336, 0.29533333)
 
 [node name="Area2D" type="Area2D" parent="." unique_id=1419837564]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=790253460]
-position = Vector2(-0.5, 4.5)
+position = Vector2(-1.75, 0.75)
 shape = SubResource("RectangleShape2D_6u4wf")
 
 [connection signal="input_event" from="Area2D" to="." method="_on_area_2d_input_event"]

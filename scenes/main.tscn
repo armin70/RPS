@@ -257,7 +257,81 @@ offset_right = 1253.0
 offset_bottom = 515.0
 text = "thunder"
 
+[node name="ShopBUtton" type="Button" parent="UI" unique_id=1563226771]
+layout_mode = 0
+offset_left = 64.0
+offset_top = 240.0
+offset_right = 72.0
+offset_bottom = 248.0
+theme_override_font_sizes/font_size = 30
+text = "shop"
+
+[node name="ShopPanel" type="Panel" parent="UI" unique_id=1193664328]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 258.0
+offset_top = 216.0
+offset_right = 1218.0
+offset_bottom = 376.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ItemContainer" type="HBoxContainer" parent="UI/ShopPanel" unique_id=1328662101]
+layout_mode = 0
+offset_left = 369.0
+offset_top = 54.0
+offset_right = 632.0
+offset_bottom = 94.0
+
+[node name="Mult" type="Button" parent="UI/ShopPanel/ItemContainer" unique_id=944642304]
+layout_mode = 2
+text = "Mult
+"
+
+[node name="Point" type="Button" parent="UI/ShopPanel/ItemContainer" unique_id=740239953]
+layout_mode = 2
+text = "Point"
+
+[node name="Gold" type="Button" parent="UI/ShopPanel/ItemContainer" unique_id=561887881]
+layout_mode = 2
+text = "Gold"
+
+[node name="Steel" type="Button" parent="UI/ShopPanel/ItemContainer" unique_id=1607807410]
+layout_mode = 2
+text = "Steel"
+
+[node name="Extract" type="Button" parent="UI/ShopPanel/ItemContainer" unique_id=412354104]
+layout_mode = 2
+text = "Extract"
+
+[node name="CloseButton" type="Button" parent="UI/ShopPanel" unique_id=85978404]
+layout_mode = 0
+offset_left = 901.0
+offset_top = 146.0
+offset_right = 949.0
+offset_bottom = 177.0
+text = "close
+"
+
+[node name="GoldLabel" type="Label" parent="UI/ShopPanel" unique_id=1860510566]
+layout_mode = 0
+offset_left = 903.0
+offset_top = 107.0
+offset_right = 943.0
+offset_bottom = 130.0
+text = "0"
+
 [connection signal="pressed" from="UI/submit" to="." method="_on_submit_pressed"]
 [connection signal="pressed" from="UI/WaterPotion" to="RPSContainer" method="_on_water_potion_pressed"]
 [connection signal="pressed" from="UI/FirePotion" to="RPSContainer" method="_on_fire_potion_pressed"]
 [connection signal="pressed" from="UI/ThunderPotion" to="RPSContainer" method="_on_thunder_potion_pressed"]
+[connection signal="pressed" from="UI/ShopBUtton" to="." method="_on_shop_b_utton_pressed"]
+[connection signal="pressed" from="UI/ShopPanel/ItemContainer/Mult" to="." method="_on_mult_pressed"]
+[connection signal="pressed" from="UI/ShopPanel/ItemContainer/Point" to="." method="_on_point_pressed"]
+[connection signal="pressed" from="UI/ShopPanel/ItemContainer/Gold" to="." method="_on_gold_pressed"]
+[connection signal="pressed" from="UI/ShopPanel/ItemContainer/Steel" to="." method="_on_steel_pressed"]
+[connection signal="pressed" from="UI/ShopPanel/ItemContainer/Extract" to="." method="_on_extract_pressed"]
+[connection signal="pressed" from="UI/ShopPanel/CloseButton" to="." method="_on_close_button_pressed"]

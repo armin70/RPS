@@ -131,6 +131,7 @@ func roll_jackpot():
 			
 		selected_scene.add_to_group(choice[0][0])
 		placeholders[item].add_child(selected_scene)
+
 func generate_RPS():
 	var choice
 	var current_deck = []
@@ -287,6 +288,8 @@ func swap_locks():
 	get_parent().water_juice = 0
 	$"../UI/WaterPotion".visible = false
 	$"../UI/WaterLabel".text = "water: " + str(get_parent().water_juice)
+
+
 func _on_water_potion_pressed() -> void:
 	swap_locks()
 

@@ -8,6 +8,7 @@ extends Node2D
 @onready var playergold: Label = $UI/Playergold
 @onready var botscore: Label = $UI/Botscore
 @onready var botmult: Label = $UI/Botmult
+@onready var shop_panel: Panel = $UI/ShopPanel
 
 var current_turn 
 var player_score := 0
@@ -19,15 +20,17 @@ var target_point := 200
 var is_game_running = true
 var bot_current_card = ""
 var player_current_card = ""
+var player_current_enchant = ""
 var multiplier = 0
 var debuff = 0
 var game_finished := false
 var fire_juice = 0
 var water_juice = 0
 var thunder_juice = 0
+var extra_juice = 0
 # Called when the node enters the scene tree for the first time.
-#func _ready() -> void:
-	#set_aspect()
+func _ready() -> void:
+	shop_panel.visible = false
 
 #func set_aspect():
 	#var vp_rect = get_viewport_rect()
@@ -68,19 +71,19 @@ func play_popup_effect(label):
 
 func add_juice(juice,type):
 	if type == "fire":
-		fire_juice += juice
+		fire_juice += juice + extra_juice
 		$UI/FireLabel.text = "fire: " + str(fire_juice)
 		if fire_juice >= 15:
 			$UI/FirePotion.visible = true
 			fire_juice = 15
 	elif type == "water":
-		water_juice += juice
+		water_juice += juice + extra_juice
 		$UI/WaterLabel.text = "water: " + str(water_juice)
 		if water_juice >= 15:
 			$UI/WaterPotion.visible = true
 			water_juice = 15
 	elif type == "thunder":
-		thunder_juice += juice
+		thunder_juice += juice + extra_juice
 		$UI/ThunderLabel.text = "thunder: " + str(thunder_juice)
 		if thunder_juice >= 15:
 			$UI/ThunderPotion.visible = true
@@ -89,10 +92,20 @@ func add_juice(juice,type):
 func calculate_points(owner: String):
 	var point = 10
 	var mult = 1
+	extra_juice = 0
 	$RPSContainer.roll_jackpot()
 
 	is_game_running = false
 	if owner == "player":
+		if player_current_enchant == "mult":
+			print("mult added")
+			mult += 4
+			playermult.text = str(mult)
+		elif player_current_enchant == "piont":
+			point += 20
+			player_point_label.text = str(point)
+		elif player_current_enchant == "extract":
+			extra_juice = 5
 		$RPSContainer.get_debuff(player_current_card)
 		await get_tree().create_timer(.4).timeout
 		$RPSContainer.remove_type(player_current_card)
@@ -242,3 +255,30 @@ func update_hp_ui():
 func _on_submit_pressed() -> void:
 	calculate_points("player")
 	_start_bot_turn()
+
+
+func _on_shop_b_utton_pressed() -> void:
+	shop_panel.visible = true
+
+func _on_close_button_pressed() -> void:
+	shop_panel.visible = false
+
+
+func _on_mult_pressed() -> void:
+	$hand.get_random_card("mult")
+
+
+func _on_point_pressed() -> void:
+	$hand.get_random_card("point")
+
+
+func _on_gold_pressed() -> void:
+	$hand.get_random_card("gold")
+
+
+func _on_steel_pressed() -> void:
+	$hand.get_random_card("steel")
+
+
+func _on_extract_pressed() -> void:
+	$hand.get_random_card("extract")

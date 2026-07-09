@@ -3,18 +3,27 @@ class_name RPSCard
 
 @onready var sprite = $Sprite2D
 var is_selected = false
-
+var enchant = ''
 enum CardType {
 	ROCK,
 	PAPER,
 	SCISSORS
 }
 @export var type: CardType
-const ROCK = preload("uid://p3wk5oyhi8jo")
+const ROCK = preload("uid://du3im3yd8opkk")
 
-const SCISSOR = preload("uid://cg42218bi1166")
+const SCISSOR = preload("uid://c63hfh6k1tb42")
 
-const PAPER = preload("uid://dgxjcxpxmxi4h")
+const PAPER = preload("uid://d3wdj12472tyi")
+
+@onready var enchant_effect: Sprite2D = $EnchantEffect
+
+
+const MULT = preload("uid://blgn0fbvf6dlh")
+const STEEL = preload("uid://bui3cdf5nyabh")
+const BONUS = preload("uid://dtrqbc7krbwrl")
+const GOLD = preload("uid://baorueqgaf5x4")
+const LUCKY = preload("uid://gr3tq3ndtqu6")
 
 func _ready() -> void:
 	if type == 0:
@@ -40,4 +49,19 @@ func _on_area_2d_input_event(viewport, event, shape_idx):
 	
 	if event is InputEventMouseButton and event.pressed:
 		print(type)
-		get_parent().set_selected_card(self)
+		get_parent().set_selected_card(self,enchant)
+
+func get_enchant(e):
+	enchant = e
+	var selected_enchant
+	if e == "mult":
+		selected_enchant =  MULT
+	elif e == "point":
+		selected_enchant = BONUS
+	elif e == "steel":
+		selected_enchant = STEEL
+	elif e == "gold":
+		selected_enchant = GOLD
+	elif e == "extract":
+		selected_enchant = LUCKY
+	enchant_effect.texture = selected_enchant
