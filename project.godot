@@ -11,9 +11,13 @@ config_version=5
 [application]
 
 config/name="R.P.S"
-run/main_scene="uid://c4f1jaky3h7js"
+run/main_scene="uid://d2r4rriqb4dpg"
 config/features=PackedStringArray("4.6", "Mobile")
 config/icon="res://icon.svg"
+
+[autoload]
+
+GameData="*uid://dt8m180851ukf"
 
 [display]
 

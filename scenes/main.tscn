@@ -64,7 +64,10 @@ position = Vector2(660, 487.00003)
 scale = Vector2(0.77166605, 0.77166605)
 
 [node name="hand" parent="." unique_id=2013734100 instance=ExtResource("3_sugp2")]
-position = Vector2(801, 868)
+position = Vector2(468, 888)
+
+[node name="DivContainer" type="Node2D" parent="." unique_id=1713739016]
+position = Vector2(1246, 14)
 
 [node name="UI" type="Control" parent="." unique_id=1608464452]
 layout_mode = 3
@@ -199,10 +202,10 @@ vertical_alignment = 1
 
 [node name="WaterLabel" type="Label" parent="UI" unique_id=66207840]
 layout_mode = 0
-offset_left = 1284.0
-offset_top = 357.0
-offset_right = 1368.0
-offset_bottom = 399.0
+offset_left = 335.0
+offset_top = 351.0
+offset_right = 419.0
+offset_bottom = 393.0
 text = "water"
 label_settings = SubResource("LabelSettings_85g3d")
 horizontal_alignment = 1
@@ -210,10 +213,10 @@ vertical_alignment = 1
 
 [node name="FireLabel" type="Label" parent="UI" unique_id=88099990]
 layout_mode = 0
-offset_left = 1280.0
-offset_top = 417.0
-offset_right = 1354.0
-offset_bottom = 459.0
+offset_left = 331.0
+offset_top = 411.0
+offset_right = 405.0
+offset_bottom = 453.0
 text = "fire"
 label_settings = SubResource("LabelSettings_choun")
 horizontal_alignment = 1
@@ -221,10 +224,10 @@ vertical_alignment = 1
 
 [node name="ThunderLabel" type="Label" parent="UI" unique_id=388655732]
 layout_mode = 0
-offset_left = 1288.0
-offset_top = 477.0
-offset_right = 1406.0
-offset_bottom = 519.0
+offset_left = 339.0
+offset_top = 471.0
+offset_right = 457.0
+offset_bottom = 513.0
 text = "thunder"
 label_settings = SubResource("LabelSettings_ya4ey")
 horizontal_alignment = 1

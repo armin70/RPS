@@ -1,0 +1,87 @@
+extends Node2D
+var div_cards = []
+var hand_cards = []
+const DivCardScene = preload("uid://cas8uly5w4yrj")
+const HAND_CARD_MENU = preload("uid://b1irbc2wn0827")
+
+var div_spacing = 210
+var start_div_position = Vector2(200, 100)
+
+var hand_spacing = 180
+var start_hand_position = Vector2(400, 800)
+
+const D_PAPER = preload("uid://lwj5wpo5rwvj")
+const D_ROCK = preload("uid://bagur52lp0kd")
+const D_SCISSOR = preload("uid://bu5sl58wpun8j")
+const D_SIBIL = preload("uid://cnumjdquwjeha")
+const D_WHITE = preload("uid://c84a3w27hdfyg")
+const D_PAIR = preload("uid://cj6fifbx58hk6")
+const SCISSORS = preload("uid://c63hfh6k1tb42")
+const ROCK = preload("uid://du3im3yd8opkk")
+const PAPER = preload("uid://d3wdj12472tyi")
+const PRS = preload("uid://srd31jafvknv")
+const RPS = preload("uid://bbxl4mxpqfex1")
+const SPR = preload("uid://vraqgid3bm3e")
+
+
+func _ready() -> void:
+	create_div_card(1,"white",D_WHITE)
+	create_div_card(2,"blue",D_ROCK)
+	create_div_card(3,"gold",D_PAPER)
+	create_div_card(4,"red",D_SCISSOR)
+	create_div_card(5,"purple",D_PAIR)
+	create_div_card(6,"blood",D_SIBIL)
+	create_hand_card(1,"rock",ROCK )
+	create_hand_card(2,"paper",PAPER )
+	create_hand_card(3,"scissors",SCISSORS )
+	create_hand_card(4,"PRS",PRS )
+	create_hand_card(5,"RPS",RPS )
+	create_hand_card(6,"SPR",SPR )
+
+
+
+func create_hand_card(i,name,texture):
+	var card = HAND_CARD_MENU.instantiate()
+
+	card.setup(name, texture)
+
+	card.position = start_hand_position + Vector2(i * hand_spacing, 0)
+
+	add_child(card)
+
+
+
+func create_div_card(i,name,texture):
+
+	var card = DivCardScene.instantiate()
+
+	card.setup(name, texture)
+
+	card.position = start_div_position + Vector2(i * div_spacing, 0)
+
+	add_child(card)
+
+func set_div_card(card):
+	if div_cards.size() < 2:
+		div_cards.append(card)
+		print(div_cards)
+
+func remove_div_card(card):
+	div_cards.erase(card)
+	print(div_cards)
+
+func set_hand_card(card):
+	if hand_cards.size() < 4 :
+		hand_cards.append(card)
+		print(hand_cards)
+
+func remove_hand_card(card):
+	hand_cards.erase(card)
+	print(hand_cards)
+	
+
+func _on_button_pressed() -> void:
+	if hand_cards.size() ==  4 and div_cards.size() == 2:
+		get_tree().change_scene_to_file("res://scenes/main.tscn")
+		GameData.div_cards = div_cards
+		GameData.hand_cards = hand_cards

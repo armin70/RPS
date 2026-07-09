@@ -1,7 +1,8 @@
 extends Node2D
 class_name RPSCard
-
-@onready var sprite = $Sprite2D
+var card_name := ""
+var card_texture: Texture2D
+@onready var sprite = $sprite
 var is_selected = false
 var enchant = ''
 enum CardType {
@@ -9,7 +10,7 @@ enum CardType {
 	PAPER,
 	SCISSORS
 }
-@export var type: CardType
+var type =""
 const ROCK = preload("uid://du3im3yd8opkk")
 
 const SCISSOR = preload("uid://c63hfh6k1tb42")
@@ -25,13 +26,13 @@ const BONUS = preload("uid://dtrqbc7krbwrl")
 const GOLD = preload("uid://baorueqgaf5x4")
 const LUCKY = preload("uid://gr3tq3ndtqu6")
 
-func _ready() -> void:
-	if type == 0:
-		$Sprite2D.texture = ROCK
-	elif type == 1:
-		$Sprite2D.texture = PAPER
-	elif type == 2:
-		$Sprite2D.texture = SCISSOR
+#func _ready() -> void:
+	#if type == 0:
+		#$Sprite2D.texture = ROCK
+	#elif type == 1:
+		#$Sprite2D.texture = PAPER
+	#elif type == 2:
+		#$Sprite2D.texture = SCISSOR
 
 func select():
 
@@ -46,10 +47,11 @@ func unselect():
 	scale = Vector2(1, 1)
 
 func _on_area_2d_input_event(viewport, event, shape_idx):
-	
 	if event is InputEventMouseButton and event.pressed:
-		print(type)
-		get_parent().set_selected_card(self,enchant)
+		perform_card()
+
+func perform_card():
+	get_parent().set_selected_card(self,enchant)
 
 func get_enchant(e):
 	enchant = e
@@ -65,3 +67,9 @@ func get_enchant(e):
 	elif e == "extract":
 		selected_enchant = LUCKY
 	enchant_effect.texture = selected_enchant
+
+func setup(name: String, texture: Texture2D, card_type: String):
+	card_name = name
+	card_texture = texture
+	type = card_type
+	$sprite.texture = card_texture

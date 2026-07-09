@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://d2r4rriqb4dpg"]
+
+[ext_resource type="Script" uid="uid://crarhlbgvvs3q" path="res://scripts/main_menu.gd" id="1_ekxnf"]
+
+[node name="MainMenu" type="Node2D" unique_id=1436232026]
+script = ExtResource("1_ekxnf")
+
+[node name="Button" type="Button" parent="." unique_id=1791258490]
+offset_left = 92.0
+offset_top = 182.0
+offset_right = 264.0
+offset_bottom = 246.0
+theme_override_font_sizes/font_size = 40
+text = "شروع بازی"
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

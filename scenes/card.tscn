@@ -9,7 +9,7 @@ size = Vector2(227.5, 311.5)
 [node name="card" type="Node2D" unique_id=1860040782]
 script = ExtResource("1_6u4wf")
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1603671225]
+[node name="sprite" type="Sprite2D" parent="." unique_id=1603671225]
 scale = Vector2(0.3, 0.3)
 texture = ExtResource("2_6u4wf")
 

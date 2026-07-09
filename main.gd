@@ -9,6 +9,7 @@ extends Node2D
 @onready var botscore: Label = $UI/Botscore
 @onready var botmult: Label = $UI/Botmult
 @onready var shop_panel: Panel = $UI/ShopPanel
+const DIV_CARD = preload("uid://cas8uly5w4yrj")
 
 var current_turn 
 var player_score := 0
@@ -28,17 +29,41 @@ var fire_juice = 0
 var water_juice = 0
 var thunder_juice = 0
 var extra_juice = 0
+
+const D_PAPER = preload("uid://lwj5wpo5rwvj")
+const D_ROCK = preload("uid://bagur52lp0kd")
+const D_SCISSOR = preload("uid://bu5sl58wpun8j")
+const D_SIBIL = preload("uid://cnumjdquwjeha")
+const D_WHITE = preload("uid://c84a3w27hdfyg")
+const D_PAIR = preload("uid://cj6fifbx58hk6")
+
+
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	shop_panel.visible = false
+	var texture
+	print("div cardss: ", GameData.div_cards)
+	var i = 0
+	for div in GameData.div_cards:
+		if div == "white":
+			texture = D_WHITE
+		elif div == "blue":
+			texture = D_ROCK
+		elif div == "gold":
+			texture = D_PAPER
+		elif div == "red":
+			texture = D_SCISSOR
+		elif div == "purple":
+			texture = D_PAIR
+		elif div == "blood":
+			texture = D_SIBIL
+		i += 1
+		var div_scene = DIV_CARD.instantiate()
+		div_scene.setup(div, texture)
+		div_scene.position =  Vector2(i * 200, 0)
+		$DivContainer.add_child(div_scene)
 
-#func set_aspect():
-	#var vp_rect = get_viewport_rect()
-	#var aspect = vp_rect.size.x / vp_rect.size.y
-	#
-	#aspect = min(max_aspect, aspect)
-	#
-	#$game_container.ratio = aspect
 func play_popup_effect(label):
 	label.visible = true
 
@@ -94,9 +119,19 @@ func calculate_points(owner: String):
 	var mult = 1
 	extra_juice = 0
 	$RPSContainer.roll_jackpot()
-
+	
 	is_game_running = false
 	if owner == "player":
+		for div in GameData.div_cards:
+				if div == "gold":
+					if player_current_card == "Paper":
+						mult += 4
+				elif div == "red":
+					if player_current_card == "Scissors":
+						mult += 4
+				elif div == "blue":
+					if player_current_card == "Rock":
+						mult += 4
 		if player_current_enchant == "mult":
 			print("mult added")
 			mult += 4
@@ -125,6 +160,11 @@ func calculate_points(owner: String):
 			mult += i
 			playermult.text = str(mult)
 			await get_tree().create_timer(.4).timeout
+		for div in GameData.div_cards:
+			if div == "white":
+				mult += 2
+				playermult.text = str(mult)
+				await get_tree().create_timer(.4).timeout
 		player_score += point * mult
 		playerscore.text = str(player_score)
 		await get_tree().create_timer(1.4).timeout
@@ -265,20 +305,20 @@ func _on_close_button_pressed() -> void:
 
 
 func _on_mult_pressed() -> void:
-	$hand.get_random_card("mult")
+	$hand.get_selected_card("mult")
 
 
 func _on_point_pressed() -> void:
-	$hand.get_random_card("point")
+	$hand.get_selected_card("point")
 
 
 func _on_gold_pressed() -> void:
-	$hand.get_random_card("gold")
+	$hand.get_selected_card("gold")
 
 
 func _on_steel_pressed() -> void:
-	$hand.get_random_card("steel")
+	$hand.get_selected_card("steel")
 
 
 func _on_extract_pressed() -> void:
-	$hand.get_random_card("extract")
+	$hand.get_selected_card("extract")
