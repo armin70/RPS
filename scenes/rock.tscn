@@ -610,6 +610,6 @@ label_settings = SubResource("LabelSettings_p2d0s")
 
 [node name="Lock" type="Sprite2D" parent="." unique_id=14255215]
 visible = false
-position = Vector2(0, 193)
+position = Vector2(1, 227)
 scale = Vector2(1.5, 1.5)
 texture = ExtResource("7_rmkyt")

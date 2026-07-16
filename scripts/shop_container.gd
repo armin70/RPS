@@ -1,6 +1,6 @@
 extends Node2D
 var start_position = Vector2(0,0)
-var spacing = 150
+var spacing = 190
 var selected_card = null
 const card_scene  = preload("uid://fr8hth3x80lv")
 const ANNAHITA = preload("uid://7vroo5xw0jr2")
@@ -33,7 +33,7 @@ func create_shop_card(i,card,texture,type):
 	new_card.setup(card, texture,type)
 	if i>2:
 		var j = i-3
-		new_card.position = start_position + Vector2(j * spacing, 210)
+		new_card.position = start_position + Vector2(j * spacing, 310)
 	else:
 		new_card.position = start_position + Vector2(i * spacing, 0)
 	add_child(new_card)

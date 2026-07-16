@@ -33,7 +33,8 @@ const STEEL = preload("uid://cfy6a4gf6wgvi")
 		#$Sprite2D.texture = PAPER
 	#elif type == 2:
 		#$Sprite2D.texture = SCISSOR
-
+func check_enchant():
+	return enchant
 func select():
 
 	is_selected = true

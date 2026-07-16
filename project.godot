@@ -24,6 +24,7 @@ GameData="*uid://dt8m180851ukf"
 window/size/viewport_width=1920
 window/size/viewport_height=1080
 window/stretch/mode="canvas_items"
+window/handheld/orientation=4
 
 [physics]
 

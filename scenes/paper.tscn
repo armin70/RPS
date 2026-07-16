@@ -460,7 +460,7 @@ animations = [{
 font_size = 50
 font_color = Color(0.40392157, 1, 0.36862746, 1)
 
-[node name="rock" type="Node2D" unique_id=2080828846]
+[node name="paper" type="Node2D" unique_id=2080828846]
 script = ExtResource("1_vas6c")
 
 [node name="animation" type="AnimatedSprite2D" parent="." unique_id=927427797]
@@ -485,6 +485,6 @@ label_settings = SubResource("LabelSettings_g4oad")
 
 [node name="Lock" type="Sprite2D" parent="." unique_id=903904176]
 visible = false
-position = Vector2(-1, 193)
+position = Vector2(-2, 231)
 scale = Vector2(1.5, 1.5)
 texture = ExtResource("7_g2531")

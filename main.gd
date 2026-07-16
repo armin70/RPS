@@ -1,20 +1,20 @@
 extends Node2D
 
 @export var max_aspect : float = 1.0
-@onready var player_point_label: Label = $UI/PlayerPoint
-@onready var bot_point_label: Label = $UI/BotPoint
-@onready var playermult: Label = $UI/Playermult
+@onready var currentPoint: Label = $UI/Point
+@onready var currentMult: Label = $UI/mult
 @onready var playerscore: Label = $UI/Playerscore
 @onready var playergold: Label = $UI/Playergold
 @onready var botscore: Label = $UI/Botscore
-@onready var botmult: Label = $UI/Botmult
 @onready var shop_panel: Panel = $UI/ShopPanel
+@onready var current_score: Label = $UI/current_score
+
 const DIV_CARD = preload("uid://cas8uly5w4yrj")
 
 var current_turn 
 var player_score := 0
 var bot_score := 0
-var player_gold := 0
+var player_gold := 16
 var player_point := 0
 var bot_point := 0
 var target_point := 200
@@ -35,7 +35,8 @@ var rock_mult_plus = 0
 var scissors_mult_plus = 0
 var more_gold = 0
 var shop_card = ""
-
+var player_card_type = ""
+var is_pair = false
 
 const D_PAPER = preload("uid://lwj5wpo5rwvj")
 const D_ROCK = preload("uid://bagur52lp0kd")
@@ -48,6 +49,15 @@ const D_PAIR = preload("uid://cj6fifbx58hk6")
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	print("current cards: ", GameData.hand_cards)
+	print("current types: ", GameData.type_cards)
+	for type in GameData.type_cards:
+		var rock_type = GameData.type_cards.count("Rock")
+		var paper_type = GameData.type_cards.count("Paper")
+		var scissors_type = GameData.type_cards.count("Scissors")
+
+		if [rock_type, paper_type, scissors_type].count(2) == 2:
+			is_pair = true
 	current_turn = "player"
 	var texture
 	var i = 0
@@ -101,6 +111,7 @@ func play_popup_effect(label):
 	label.scale = Vector2.ONE
 
 func add_juice(juice,type):
+	print("extra_juice: ", extra_juice)
 	if current_turn == "player":
 		if type == "fire":
 			fire_juice += juice + extra_juice
@@ -127,8 +138,8 @@ func add_juice(juice,type):
 func calculate_points(owner: String):
 	var point = 10
 	var mult = 1
-	extra_juice = 0
 	$RPSContainer.roll_jackpot()
+	extra_juice = 0
 	
 	is_game_running = false
 	if owner == "player":
@@ -142,63 +153,117 @@ func calculate_points(owner: String):
 				rock_mult_plus += plus_mult
 			elif player_current_card == "Scissors":
 				scissors_mult_plus += plus_mult
+			
 		else:
+			if GameData.enchanted_cards.size() != 0:
+				for enchant in GameData.enchanted_cards:
+					var extra_gold = 0
+					var extra_mult = 0
+					if enchant == "gold":
+						extra_gold += 1
+
+					if enchant == "steel":
+						extra_mult += 1
+					if player_current_enchant == "gold":
+						extra_gold -= 1
+					if player_current_enchant == "steel":
+						extra_mult -= 1
+					if extra_gold>0:
+						for i in range(0,extra_gold):
+							player_gold += 5
+							playergold.text = str(player_gold)
+					if extra_mult>0:
+						for i in range(0,extra_mult):
+							mult *= 1.5
+							currentMult.text = str(mult)
 			if player_current_card == "Paper" and paper_mult_plus != 0 :
 				mult += paper_mult_plus
 			elif player_current_card == "rock" and rock_mult_plus != 0 :
 				mult += rock_mult_plus
 			elif player_current_card == "Scissors" and scissors_mult_plus != 0 :
 				mult += scissors_mult_plus
+			elif player_current_card == "Random":
+				var random_type = ["Rock","Paper","Scissors"].pick_random()
+				player_current_card = random_type
+
+				if player_card_type == random_type:
+					mult += 2
+					currentMult.text = str(mult)
 			if more_gold != 0:
 				player_gold += more_gold
 				more_gold = 0
-				
+			
 			for div in GameData.div_cards:
 					if div == "gold":
 						if player_current_card == "Paper":
 							mult += 4
+							currentMult.text = str(mult)
 					elif div == "red":
 						if player_current_card == "Scissors":
 							mult += 4
+							currentMult.text = str(mult)
 					elif div == "blue":
 						if player_current_card == "Rock":
 							mult += 4
+							currentMult.text = str(mult)
+					elif div == "purple":
+						if is_pair:
+							point += 50
+							currentPoint.text = str(point)
 			if player_current_enchant == "mult":
 				print("mult added")
 				mult += 4
-				playermult.text = str(mult)
+				currentMult.text = str(mult)
 			elif player_current_enchant == "piont":
 				point += 20
-				player_point_label.text = str(point)
+				currentPoint.text = str(point)
 			elif player_current_enchant == "extract":
-				extra_juice = 5
-			$RPSContainer.get_debuff(player_current_card)
+				if extra_juice == 0:
+					extra_juice = 5
+				else:
+					extra_juice = 10
+					print("extra juice")
+			if player_current_card == "needle":
+				$RPSContainer.get_debuff("Scissors")
+			else:
+				print("player_current_card player_current_card ", player_current_card)
+				$RPSContainer.get_debuff(player_current_card)
 			await get_tree().create_timer(.4).timeout
-			$RPSContainer.remove_type(player_current_card)
+			if player_current_card == "needle":
+				if extra_juice == 0:
+					extra_juice = 5
+				else:
+					extra_juice = 10
+				$RPSContainer.remove_type("Scissors")
+			else:
+				$RPSContainer.remove_type(player_current_card)
 			update_hp_ui()
 			if debuff:
 				for i in debuff:
 					point -= i
-			player_point_label.text = str(point)
+			currentPoint.text = str(point)
 			await get_tree().create_timer(1).timeout
 			for i in range(0,multiplier.size()):
 				point += point
-				player_point_label.text = str(point)
+				currentPoint.text = str(point)
 				await get_tree().create_timer(.4).timeout
 			player_gold += int(point / 10)
 			playergold.text = str(player_gold)
 			for i in multiplier:
 				mult += i
-				playermult.text = str(mult)
+				currentMult.text = str(mult)
 				await get_tree().create_timer(.4).timeout
 			for div in GameData.div_cards:
 				if div == "white":
 					mult += 2
-					playermult.text = str(mult)
+					currentMult.text = str(mult)
 					await get_tree().create_timer(.4).timeout
+			current_score.text = str(point * mult)
+			await get_tree().create_timer(.4).timeout
 			player_score += point * mult
 			playerscore.text = str(player_score)
 			await get_tree().create_timer(1.4).timeout
+			current_score.text = str(0)
 	else:
 		$RPSContainer.get_debuff(bot_current_card)
 		await get_tree().create_timer(.4).timeout
@@ -207,23 +272,27 @@ func calculate_points(owner: String):
 		if debuff:
 			for i in debuff:
 				point -= i
-		bot_point_label.text = str(point)
+		currentPoint.text = str(point)
 		await get_tree().create_timer(1).timeout
 		for i in range(0,multiplier.size()):
 			point += point
-			bot_point_label.text = str(point)
+			currentPoint.text = str(point)
 			await get_tree().create_timer(.4).timeout
 		for i in multiplier:
 			mult += i
-			botmult.text = str(mult)
+			currentMult.text = str(mult)
 			await get_tree().create_timer(.4).timeout
+		current_score.text = str(point * mult)
+		await get_tree().create_timer(.4).timeout
 		bot_score += point * mult
+		
 		botscore.text = str(bot_score)
 		await get_tree().create_timer(1.4).timeout
-	player_point_label.text = str(0)
-	playermult.text = str(0)
+		current_score.text = str(0)
+	currentPoint.text = str(0)
+	currentMult.text = str(0)
 	is_game_running = true
-	
+	extra_juice = 0
 	update_hp_ui()
 	check_game_over()
 	
@@ -319,7 +388,7 @@ func _start_player_turn():
 
 func update_hp_ui():
 	playerscore.text = str(player_score)
-	bot_point_label.text = str(bot_point)
+	currentPoint.text = str(bot_point)
 
 
 func _on_submit_pressed() -> void:
@@ -340,5 +409,13 @@ func _on_pay_pressed() -> void:
 		if player_gold >= 8:
 			player_gold -= 8
 			playergold.text = str(player_gold)
-		print("shop_card ", shop_card)
-		$hand.get_selected_card(shop_card)
+			print("shop_card ", shop_card)
+			$hand.get_selected_card(shop_card)
+
+
+func _on_guide_pressed() -> void:
+	$UI/guide_panel.visible = true
+
+
+func _on_return_pressed() -> void:
+	$UI/guide_panel.visible = false

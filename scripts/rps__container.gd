@@ -292,7 +292,7 @@ func lock_all():
 	set_locks()
 	get_parent().thunder_juice = 0
 	$"../UI/ThunderPotion".visible = false
-	$"../UI/ThunderLabel".text = "thunder: " + str(get_parent().thunder_juice)
+	$"../UI/ThunderLabel".text = "0/15"
 
 func reset_board():
 	unlocked_items= [0,1,2,3]
@@ -301,7 +301,7 @@ func reset_board():
 	get_random_unlock()
 	get_parent().fire_juice = 0
 	$"../UI/FirePotion". visible = false
-	$"../UI/FireLabel".text = "fire: " + str(get_parent().fire_juice)
+	$"../UI/FireLabel".text = "0/15"
 	
 func swap_locks():
 	var temp = locked_items
@@ -310,7 +310,7 @@ func swap_locks():
 	set_locks()
 	get_parent().water_juice = 0
 	$"../UI/WaterPotion".visible = false
-	$"../UI/WaterLabel".text = "water: " + str(get_parent().water_juice)
+	$"../UI/WaterLabel".text = "0/15"
 
 func _on_water_potion_pressed() -> void:
 	swap_locks()

@@ -4,13 +4,13 @@
 [ext_resource type="Texture2D" uid="uid://7vroo5xw0jr2" path="res://assets/Tarot/Annahita.png" id="2_y3h8k"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6u4wf"]
-size = Vector2(95, 136)
+size = Vector2(181, 256)
 
 [node name="shop_card" type="Node2D" unique_id=1860040782]
 script = ExtResource("1_y3h8k")
 
 [node name="sprite" type="Sprite2D" parent="." unique_id=1603671225]
-scale = Vector2(0.08, 0.08)
+scale = Vector2(0.15, 0.15)
 texture = ExtResource("2_y3h8k")
 
 [node name="EnchantEffect" type="Sprite2D" parent="." unique_id=1621885920]
@@ -20,7 +20,7 @@ scale = Vector2(0.29533336, 0.29533333)
 [node name="Area2D" type="Area2D" parent="." unique_id=1419837564]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=790253460]
-position = Vector2(-0.5, -1)
+position = Vector2(-0.5, 1)
 shape = SubResource("RectangleShape2D_6u4wf")
 
 [connection signal="input_event" from="Area2D" to="." method="_on_area_2d_input_event"]

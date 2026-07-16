@@ -4,18 +4,18 @@ var hand_cards = []
 const DivCardScene = preload("uid://cas8uly5w4yrj")
 const HAND_CARD_MENU = preload("uid://b1irbc2wn0827")
 
-var div_spacing = 210
-var start_div_position = Vector2(200, 100)
+var div_spacing = 270
+var start_div_position = Vector2(300, 30)
 
-var hand_spacing = 180
-var start_hand_position = Vector2(400, 650)
+var hand_spacing = 230
+var start_hand_position = Vector2(300, 600)
+const D_PAIR = preload("uid://0wjmfs50oxce")
+const D_PAPER = preload("uid://578wd0kvqiio")
+const D_ROCK = preload("uid://devj4yn7yirfc")
+const D_SCISSOR = preload("uid://taqs2xir2owq")
+const D_SIBIL = preload("uid://dkcivg0t3ct7a")
+const D_WHITE = preload("uid://dsi70kv7g61bl")
 
-const D_PAPER = preload("uid://lwj5wpo5rwvj")
-const D_ROCK = preload("uid://bagur52lp0kd")
-const D_SCISSOR = preload("uid://bu5sl58wpun8j")
-const D_SIBIL = preload("uid://cnumjdquwjeha")
-const D_WHITE = preload("uid://c84a3w27hdfyg")
-const D_PAIR = preload("uid://cj6fifbx58hk6")
 const SCISSORS = preload("uid://c63hfh6k1tb42")
 const ROCK = preload("uid://du3im3yd8opkk")
 const PAPER = preload("uid://d3wdj12472tyi")
@@ -31,12 +31,12 @@ const NEEDLE = preload("uid://b8aqd8euy4e2p")
 
 
 func _ready() -> void:
-	create_div_card(1,"white",D_WHITE)
-	create_div_card(2,"blue",D_ROCK)
-	create_div_card(3,"gold",D_PAPER)
-	create_div_card(4,"red",D_SCISSOR)
-	create_div_card(5,"purple",D_PAIR)
-	create_div_card(6,"blood",D_SIBIL)
+	create_div_card(0,"white",D_WHITE)
+	create_div_card(1,"blue",D_ROCK)
+	create_div_card(2,"gold",D_PAPER)
+	create_div_card(3,"red",D_SCISSOR)
+	create_div_card(4,"purple",D_PAIR)
+	create_div_card(5,"blood",D_SIBIL)
 	create_hand_card(1,"rock",ROCK )
 	create_hand_card(2,"paper",PAPER )
 	create_hand_card(3,"scissors",SCISSORS )
@@ -60,7 +60,7 @@ func create_hand_card(i,name,texture):
 		card.position = start_hand_position + Vector2(i * hand_spacing, 0)
 	else:
 		var j = i - 6
-		card.position = start_hand_position + Vector2(j * hand_spacing, 300)
+		card.position = start_hand_position + Vector2(j * hand_spacing, 320)
 		
 
 	add_child(card)
