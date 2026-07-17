@@ -38,13 +38,13 @@ var shop_card = ""
 var player_card_type = ""
 var is_pair = false
 
-const D_PAPER = preload("uid://lwj5wpo5rwvj")
-const D_ROCK = preload("uid://bagur52lp0kd")
-const D_SCISSOR = preload("uid://bu5sl58wpun8j")
-const D_SIBIL = preload("uid://cnumjdquwjeha")
-const D_WHITE = preload("uid://c84a3w27hdfyg")
-const D_PAIR = preload("uid://cj6fifbx58hk6")
 
+const D_PAIR = preload("uid://0wjmfs50oxce")
+const D_PAPER = preload("uid://578wd0kvqiio")
+const D_ROCK = preload("uid://devj4yn7yirfc")
+const D_SCISSOR = preload("uid://taqs2xir2owq")
+const D_SIBIL = preload("uid://dkcivg0t3ct7a")
+const D_WHITE = preload("uid://dsi70kv7g61bl")
 
 
 # Called when the node enters the scene tree for the first time.
@@ -77,7 +77,9 @@ func _ready() -> void:
 		i += 1
 		var div_scene = DIV_CARD.instantiate()
 		div_scene.setup(div, texture)
-		div_scene.position =  Vector2(i * 200, 0)
+		div_scene.disable()
+		
+		div_scene.position =  Vector2(i * 280, 0)
 		$DivContainer.add_child(div_scene)
 
 func play_popup_effect(label):
@@ -368,7 +370,20 @@ func check_game_over():
 		is_game_running = false
 		get_tree().paused = true
 
+func switch_input(is_enabled):
+	if is_enabled:
+		$UI/submit.disabled = false
+		$UI/WaterPotion.disabled = false
+		$UI/FirePotion.disabled = false
+		$UI/ThunderPotion.disabled = false
+	else:
+		$UI/submit.disabled = true
+		$UI/WaterPotion.disabled = true
+		$UI/FirePotion.disabled = true
+		$UI/ThunderPotion.disabled = true
+		
 func _start_bot_turn():
+	switch_input(false)
 	await get_tree().create_timer(3).timeout
 	current_turn = "bot"
 	print("current_turn ",current_turn)
@@ -376,11 +391,12 @@ func _start_bot_turn():
 	if not game_finished:
 		_start_player_turn()
 	#$RPSContainer.input_enabled = false
-	
 
 
 func _start_player_turn():
 	if game_finished: return
+	switch_input(true)
+	
 	await get_tree().create_timer(3).timeout
 	current_turn = "player"
 	print("current_turn ",current_turn)

@@ -16,6 +16,9 @@ func unselect():
 	sprite.modulate = Color(1, 1, 1)
 	scale = Vector2(1, 1)
 
+func disable():
+	$Area2D.visible = false
+
 func _on_area_2d_input_event(viewport, event, shape_idx):
 	
 	if event is InputEventMouseButton and event.pressed:

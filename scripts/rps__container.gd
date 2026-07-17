@@ -103,6 +103,8 @@ func full_deck_generator():
 
 func pick_random_card(number):
 	var new_deck =[]
+	if full_deck.size() <= 4 :
+		full_deck_generator()
 	for i in number:
 		var index = randi() % full_deck.size()
 		var value = full_deck[index]
@@ -209,15 +211,15 @@ func remove_type(type_name: String):
 			if target.effected =="fire":
 				buff.append(2)
 				target.get_buff(2)
-				get_parent().add_juice(5,"fire")
+				get_parent().add_juice(10,"fire")
 			elif target.effected =="water":
 				buff.append(2)
 				target.get_buff(2)
-				get_parent().add_juice(5,"water")
+				get_parent().add_juice(10,"water")
 			elif target.effected =="thunder":
 				buff.append(2)
 				target.get_buff(2)
-				get_parent().add_juice(5,"thunder")
+				get_parent().add_juice(10,"thunder")
 				
 			else:
 				buff.append(1)

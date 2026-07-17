@@ -1227,6 +1227,8 @@ animations = [{
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_85g3d"]
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_yq6so"]
+
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_tipki"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_85g3d"]
@@ -1264,17 +1266,23 @@ font_size = 30
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jbj1t"]
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_fv21b"]
+
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_muem4"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_dp3eg"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_0ld40"]
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_tel4y"]
+
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_gqmmt"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_yc10j"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jscy8"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qkpxi"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ya4ey"]
 
@@ -1312,8 +1320,8 @@ scale = Vector2(0.6406684, 0.6406684)
 position = Vector2(470, 857)
 
 [node name="DivContainer" type="Node2D" parent="." unique_id=1713739016]
-position = Vector2(1125, -69)
-scale = Vector2(1.2, 1.2)
+position = Vector2(1235, -2)
+scale = Vector2(0.8, 0.8)
 
 [node name="jackpot" type="AnimatedSprite2D" parent="." unique_id=898418864]
 position = Vector2(1895, 497)
@@ -1373,6 +1381,7 @@ offset_bottom = 868.0
 theme_override_styles/normal = SubResource("StyleBoxEmpty_tefeu")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_o6xl0")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_85g3d")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_yq6so")
 
 [node name="BotHpBar" type="ProgressBar" parent="UI" unique_id=1766619303]
 visible = false
@@ -1510,6 +1519,7 @@ offset_bottom = 485.0
 theme_override_styles/normal = SubResource("StyleBoxEmpty_a8y0u")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_jkv2x")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_jbj1t")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_fv21b")
 
 [node name="FirePotion" type="Button" parent="UI" unique_id=429586825]
 visible = false
@@ -1521,6 +1531,7 @@ offset_bottom = 473.0
 theme_override_styles/normal = SubResource("StyleBoxEmpty_muem4")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_dp3eg")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_0ld40")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_tel4y")
 
 [node name="ThunderPotion" type="Button" parent="UI" unique_id=141809159]
 visible = false
@@ -1532,6 +1543,7 @@ offset_bottom = 479.0
 theme_override_styles/normal = SubResource("StyleBoxEmpty_gqmmt")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_yc10j")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_jscy8")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_qkpxi")
 
 [node name="pay" type="Button" parent="UI" unique_id=266091207]
 layout_mode = 0
